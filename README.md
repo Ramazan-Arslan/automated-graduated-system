@@ -68,13 +68,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
-## npm yarn install
-Eğer yarn yoksa yukardaki şekilde terminalden indir.
-
-## yarn add @material-ui/core
-Material uı kullanabilmek için bu şekilde terminalden indir.
-
-## yarn add @material-ui/icons
-Material uı'daki svg iconları kullanabilmek için bu şekilde terminalden indir.
