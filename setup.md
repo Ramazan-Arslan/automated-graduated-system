@@ -7,12 +7,13 @@ Material uı kullanabilmek için bu şekilde terminalden indir.
 ## yarn add @material-ui/icons
 Material uı'daki svg iconları kullanabilmek için bu şekilde terminalden indir.
 
-## yarn add firbase
-Firebase'i indirir
+## yarn add @fortawesome/fontawesome-svg-core
+##  yarn add @fortawesome/free-solid-svg-icons
+##  yarn add @fortawesome/react-fontawesome
+iconlar için
 
-## yarn add @react-firebase/auth
-Ne işe yarıyor bilmiyorum ilk defa çalıştırıkren indirin xd 
-
+## yarn add react-router-dom
+router için
 
 
 

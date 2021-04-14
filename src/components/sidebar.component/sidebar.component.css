@@ -1,0 +1,46 @@
+.sidebar{
+    position: fixed;
+  top: 0;
+  width: 24%; /* Kötü gözükürse 20'ye çekecez */
+  height: 100%;
+  background-color:#620808;
+  color:white;
+}
+.iztechlogo{
+    height: 17%;
+    width: auto;
+    margin-top:40px;
+}
+.title{
+    font-size:24px;
+    font-weight: 500;
+}
+.hr{
+    width: 85%;
+    border:0;
+    background-color: white;
+    height: 1px ;
+}
+.sidebarbutton{
+    font-size: 22px;
+    text-align: start;
+    padding-left: 7.5%;
+
+}
+.sidebarbutton p{
+    color:white;
+}
+.sidebarbutton p:hover{
+    color:#c4c4c4;
+}
+
+.icons{
+    position: absolute;
+    left: 80%;
+}
+.button5{
+    margin-top:150px;
+}
+.button6{
+    
+}

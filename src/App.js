@@ -1,7 +1,11 @@
-import logo from './assets/icons/logo.svg';
 import './App.css';
-import Button from '@material-ui/core/Button';
-import SideBar from './components/sidebar.component/siderbar.component.js';
+import SideBar from './components/sidebar.component/sidebar.component.js';
+import Header from './components/header.component/header.component.js';
+import StudentInformation from './components/student-information.component/student-information.component.js';
+import AdvisorInformation from './components/advisor-information.component/advisor-information.component.js';
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 /*import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -22,14 +26,14 @@ function InitilizeFirebase(){
 function App() {
   return (
     <div className="App">
-    <Button variant="contained" color="secondary">
-      ilk sayfa
-    </Button>
-    <Button variant="contained" >
-      ikinci sayfa
-    </Button>
-    <SideBar/>
-  
+       <Router>
+         <Header/>
+        <SideBar/>
+        <Switch>
+          <Route path="/studentinformation" component={StudentInformation} />
+          <Route path="/advisorinformation" component={AdvisorInformation} />
+        </Switch>
+      </Router>
     </div>
   );
 }
