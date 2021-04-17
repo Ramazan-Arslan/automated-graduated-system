@@ -1,7 +1,7 @@
 .sidebar{
     position: fixed;
   top: 0;
-  width: 24%; /* Kötü gözükürse 20'ye çekecez */
+  width: 22%; /* Kötü gözükürse 20'ye çekecez */
   height: 100%;
   background-color:#620808;
   color:white;
@@ -37,6 +37,7 @@
 .icons{
     position: absolute;
     left: 80%;
+    margin-top:3px;
 }
 .button5{
     margin-top:150px;

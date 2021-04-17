@@ -1,19 +1,21 @@
 .header{
     position: fixed;
   top: 0;
-  left:24%;
-  width: 100%; /* Kötü gözükürse 20'ye çekecez */
+  left:22%;
+  width: 78%;
   height: 13%;
   background-color: #c4c4c4;
   color:white;
+  display: inline-flex;
+ justify-content: space-between;
 }
 .headericon{
   height: 100%;
   width: 140px;
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-left:20px;
+
 }
 .headericon svg{
   font-size: 36px;
@@ -22,4 +24,25 @@
 }
 .headericon svg:hover{
   color:rgb(55, 73, 109);
+}
+.userCard{
+  background: grey;
+  width: 300px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.userAvatar{
+  background-color: orange  !important;
+}
+.userInfo{
+    margin-left:20px;
+    
+}
+.userTitle{
+  font-size:24px;
+  margin-bottom: -12px;
+}
+.userType{
+  text-align: end;
 }

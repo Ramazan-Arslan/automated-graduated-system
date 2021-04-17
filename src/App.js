@@ -26,14 +26,8 @@ function InitilizeFirebase(){
 function App() {
   return (
     <div className="App">
-       <Router>
          <Header/>
         <SideBar/>
-        <Switch>
-          <Route path="/studentinformation" component={StudentInformation} />
-          <Route path="/advisorinformation" component={AdvisorInformation} />
-        </Switch>
-      </Router>
     </div>
   );
 }
