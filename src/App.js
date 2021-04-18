@@ -1,10 +1,6 @@
-import './App.css';
-import SideBar from './components/sidebar.component/sidebar.component.js';
-import Header from './components/header.component/header.component.js';
-import StudentInformation from './components/student-information.component/student-information.component.js';
-import AdvisorInformation from './components/advisor-information.component/advisor-information.component.js';
-
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import './App.css'
+import SideBar from './components/sidebar.component/sidebar.component.js'
+import Header from './components/header.component/header.component.js'
 
 /*import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -25,11 +21,11 @@ function InitilizeFirebase(){
 
 function App() {
   return (
-    <div className="App">
-         <Header/>
-        <SideBar/>
+    <div className='App'>
+      <Header />
+      <SideBar />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
