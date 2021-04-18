@@ -1,47 +1,52 @@
-.sidebar{
-    position: fixed;
+.sidebar {
+  position: fixed;
   top: 0;
   width: 22%; /* Kötü gözükürse 20'ye çekecez */
   height: 100%;
-  background-color:#620808;
-  color:white;
+  background-color: #620808;
+  color: white;
 }
-.iztechlogo{
-    height: 17%;
-    width: auto;
-    margin-top:40px;
+.iztechlogo {
+  height: 17%;
+  width: auto;
+  margin-top: 40px;
 }
-.title{
-    font-size:24px;
-    font-weight: 500;
+.title {
+  font-size: 24px;
+  font-weight: 500;
 }
-.hr{
-    width: 85%;
-    border:0;
-    background-color: white;
-    height: 1px ;
+.hr {
+  width: 85%;
+  border: 0;
+  background-color: white;
+  height: 1px;
 }
-.sidebarbutton{
-    font-size: 22px;
-    text-align: start;
-    padding-left: 7.5%;
+.sidebarbutton {
+  font-size: 22px;
+  text-align: start;
+  padding-left: 7.5%;
+}
+.sidebarbutton p {
+  color: white;
+}
+.sidebarbutton p:hover {
+  color: #c4c4c4;
+}
 
+.icons {
+  position: absolute;
+  left: 80%;
+  margin-top: 3px;
 }
-.sidebarbutton p{
-    color:white;
+.button5 {
+  margin-top: 150px;
 }
-.sidebarbutton p:hover{
-    color:#c4c4c4;
+.button6 {
 }
 
-.icons{
-    position: absolute;
-    left: 80%;
-    margin-top:3px;
-}
-.button5{
-    margin-top:150px;
-}
-.button6{
-    
+.ul-style {
+  list-style-type: none;
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
 }

@@ -1,48 +1,47 @@
-.header{
-    position: fixed;
+.header {
+  position: fixed;
   top: 0;
-  left:22%;
+  left: 22%;
   width: 78%;
   height: 13%;
   background-color: #c4c4c4;
-  color:white;
+  color: black;
   display: inline-flex;
- justify-content: space-between;
+  justify-content: space-between;
 }
-.headericon{
+.headericon {
   height: 100%;
   width: 140px;
   display: flex;
   align-items: center;
-  margin-left:20px;
-
+  margin-left: 20px;
 }
-.headericon svg{
+.headericon svg {
   font-size: 36px;
-  padding-right:20px;
-  color:rgb(42, 42, 42);
+  padding-right: 20px;
+  color: rgb(42, 42, 42);
 }
-.headericon svg:hover{
-  color:rgb(55, 73, 109);
+.headericon svg:hover {
+  color: rgb(55, 73, 109);
 }
-.userCard{
+.userCard {
   background: grey;
   width: 300px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-.userAvatar{
-  background-color: orange  !important;
+.userAvatar {
+  background-color: orange !important;
 }
-.userInfo{
-    margin-left:20px;
-    
+.userInfo {
+  margin-left: 20px;
 }
-.userTitle{
-  font-size:24px;
+.userTitle {
+  font-size: 24px;
   margin-bottom: -12px;
+  font-weight: 600;
 }
-.userType{
+.userType {
   text-align: end;
 }

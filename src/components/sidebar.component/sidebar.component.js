@@ -1,30 +1,31 @@
-import React from 'react';
-import './sidebar.component.css';
+import React from 'react'
+import './sidebar.component.css'
+import iztechlogo from '../../assets/icons/iztech-logo.svg'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import Routes from '../../routes/route.js'
 
-import iztechlogo from '../../assets/icons/iztech-logo.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
-
-import {BrowserRouter as Router, Route,Link } from "react-router-dom";
-
-import Routes from '../../routes/route.js';
-
-// %25 genişlik 
-export default function SideBar(){
-  return(
-    <div className="sidebar">
-        <img src={iztechlogo} className="iztechlogo" alt="logo" />
-        <p className="title">Izmir Institute of Technology </p>
-        <hr className="hr" />
-        <Router>
+// %25 genişlik
+export default function SideBar() {
+  const linkStyle = {
+    color: 'white',
+    textDecoration: 'none',
+  }
+  return (
+    <div className='sidebar'>
+      <img src={iztechlogo} className='iztechlogo' alt='logo' />
+      <p className='title'>Izmir Institute of Technology </p>
+      <hr className='hr' />
+      <Router>
         <div>
-        <ul>
+          <ul className='ul-style'>
             {Routes.map((route) => (
               <li>
-                <Link to={route.path}>{route.name}</Link>
+                <Link style={linkStyle} to={route.path}>
+                  {route.name}
+                </Link>
               </li>
             ))}
-        </ul>
+          </ul>
           {Routes.map((route) => (
             <Route
               key={route.path}
@@ -34,10 +35,8 @@ export default function SideBar(){
           ))}
         </div>
       </Router>
-        
-        
-        
-       {/* <BrowserRouter>
+
+      {/* <BrowserRouter>
         {routeComponents}
         <div className="sidebarbutton button1" ><p>  Student Information <FontAwesomeIcon className= "icons" icon={faAngleRight} /> </p></div>
         <div className="sidebarbutton button2" ><p> General Operations <FontAwesomeIcon className= "icons" icon={faAngleRight} /></p></div>
@@ -49,13 +48,8 @@ export default function SideBar(){
        
         <div className="sidebarbutton button1" ><Link to='/studentinformation'><p> Student Information <FontAwesomeIcon className= "icons" icon={faAngleRight} /> </p> </Link></div>
         <div className="sidebarbutton button2" ><Link to='/advisorinformation'><p> General Operations <FontAwesomeIcon className= "icons" icon={faAngleRight} /></p> </Link></div>  */}
-   
     </div>
-  );
-
-
+  )
 }
-
-
 
 //
