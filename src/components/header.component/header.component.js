@@ -23,7 +23,7 @@ export default function Header() {
     textDecoration: 'none',
   }
 
-  const [userInfo, setUserInfo] = useState(Object({name:null,surname:null}));
+  const [userInfo, setUserInfo] = useState(Object({name:'',surname:''}));
   useEffect(async () => {
     var studentObject = await getStudentData();
     setUserInfo(studentObject);

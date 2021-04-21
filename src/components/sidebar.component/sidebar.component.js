@@ -20,7 +20,7 @@ export default function SideBar() {
           <ul className='ul-style'>
             {Routes.map((route) =>
               route.key < 9 ? (
-                <li>
+                <li className='li-style'>
                   <Link style={linkStyle} to={route.path}>
                     {route.name}
                   </Link>
