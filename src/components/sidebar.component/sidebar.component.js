@@ -18,17 +18,19 @@ export default function SideBar() {
       <Router>
         <div>
           <ul className='ul-style'>
-            {Routes.map((route) => (
-              <li>
-                <Link style={linkStyle} to={route.path}>
-                  {route.name}
-                </Link>
-              </li>
-            ))}
+            {Routes.map((route) =>
+              route.key < 9 ? (
+                <li className='li-style'>
+                  <Link style={linkStyle} to={route.path}>
+                    {route.name}
+                  </Link>
+                </li>
+              ) : null
+            )}
           </ul>
           {Routes.map((route) => (
             <Route
-              key={route.path}
+              key={route.key}
               path={route.path}
               component={route.component}
             />
@@ -36,7 +38,8 @@ export default function SideBar() {
         </div>
       </Router>
 
-      {/* <BrowserRouter>
+      {/* 
+      <BrowserRouter>
         {routeComponents}
         <div className="sidebarbutton button1" ><p>  Student Information <FontAwesomeIcon className= "icons" icon={faAngleRight} /> </p></div>
         <div className="sidebarbutton button2" ><p> General Operations <FontAwesomeIcon className= "icons" icon={faAngleRight} /></p></div>

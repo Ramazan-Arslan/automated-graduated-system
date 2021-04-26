@@ -10,7 +10,7 @@ const postRequest = async (path, json) => {
 
    await axios.post(address + path, json)
       .then((response) => {
-         returnedData = response.data // << This is the problem
+         returnedData = response.data;
       });
    return returnedData;
 
