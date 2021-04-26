@@ -6,6 +6,7 @@ import Thesis from '../components/thesis.component/thesis.component.js'
 import Lessons from '../components/lessons.component/lessons.component.js'
 import Help from '../components/help.component/help.component.js'
 import Settings from '../components/settings.component/settings.component.js'
+import Login from '../components/login.component/login.component.js';
 const Routes = [
   {
     name: 'Student Information',
@@ -46,6 +47,11 @@ const Routes = [
     name: 'Settings',
     path: '/settings',
     component: Settings,
+  },
+  {
+    name:'Login',
+    path:'/login',
+    component : Login,
   },
 ]
 
