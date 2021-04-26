@@ -44,7 +44,7 @@ export default function Header() {
       <div className="userCard">
         <Avatar alt="Remy Sharp" src="/broken-image.jpg" className="userAvatar">F</Avatar>
         <div className="userInfo">
-          <p className="userTitle">{userInfo.name + " " + userInfo.surname}</p> {/* İlerde burası databaseden çekilcek user.name gibi*/}
+          <p className="userTitle">{userInfo.name + " " + userInfo.surname}</p> 
           <p className="userType">Student</p>
 
         </div>
