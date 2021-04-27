@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './header.component.css';
 import { BrowserRouter as Router, Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
@@ -8,12 +9,12 @@ import { Avatar } from '@material-ui/core';
 import getData from '../../data_access/getData';
 
 
-async function getStudentData()
-{
-  var url =('/user/students/250201042');
+async function getStudentData(userId) {
+  var url = ('/user/students/' + userId);
   var obj = await getData(url);
   return obj;
 }
+
 
 
 export default function Header() {
@@ -23,10 +24,11 @@ export default function Header() {
     textDecoration: 'none',
   }
 
-  const [userInfo, setUserInfo] = useState(Object({name:'',surname:''}));
+  var userId = localStorage.getItem('id');
+  const [userInfo, setUserInfo] = useState(Object({name:"",surname:""}));
   useEffect(async () => {
-    var studentObject = await getStudentData();
-    setUserInfo(studentObject);
+    var studentObject = await getStudentData(userId);
+    setUserInfo(studentObject);    
   });
 
   return (
@@ -49,6 +51,11 @@ export default function Header() {
 
         </div>
       </div>
+
+      <Button onClick={() => {
+       localStorage.removeItem('id');
+       window.location.reload(true);
+      }} variant="contained">Logout</Button>
     </div>
   )
 };
