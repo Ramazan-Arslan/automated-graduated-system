@@ -10,6 +10,7 @@ export default function SideBar() {
     color: 'white',
     textDecoration: 'none',
   }
+
   return (
     <div className='sidebar'>
       <img src={iztechlogo} className='iztechlogo' alt='logo' />

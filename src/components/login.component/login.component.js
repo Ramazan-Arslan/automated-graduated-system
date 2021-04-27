@@ -1,41 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import postRequest from '../../data_access/postRequest';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import App from '../../App';
+import '../../components/login.component/login.component.css'
 
 
-async function LoginRequest() {
-  var json =
-  {
-    email: "fsahin@std.iyte.edu.tr",
-    password: "123456"
-  }
-  var obj = await postRequest("/login", json);
-  return obj;
-}
+
+
+
 
 
 export default function Login() {
-
-
   const history = useHistory();
-  const routeChange = () =>
-  {
-    let path = 'settings';
-    history.push(path);
+  const [userEmail, setEmail] = useState("");
+  const [userPassword, setPassword] = useState("");
+
+
+  async function login(email, password) {
+    if (email != "" && password != "") {
+      var obj = await loginRequest(email, password);
+      console.log(obj)
+      if (Boolean(obj.id)) {
+        var json=
+        {
+          id:obj.id,
+          name:obj.name,
+          surname:obj.surname,
+          department:obj.department,
+        }
+        localStorage.setItem('id',obj.id);
+        window.location.reload(true);
+      }
+    }
+
   }
-  const [userInfo, setUserInfo] = useState({});
-  useEffect(async () => {
-    var object = await LoginRequest();
-    if (object.id != null) {
-      setUserInfo(object);
-      routeChange();
-    }
-    else {
-      object = object + "";
-      var res_split = object.split("-");
-    }
 
-  });
 
-  return (null)
+
+  async function loginRequest(email, password) {
+    var json =
+    {
+      email: email,
+      password: password
+    }
+    var obj = await postRequest("/login", json);
+    return obj;
+  }
+
+  return (
+    
+    <div className='login'>
+      <TextField id="email" label="Email" variant="filled" onChange={(event) => { setEmail(event.target.value) }} />
+      <TextField id="password" label="Password" variant="filled" onChange={(event) => { setPassword(event.target.value) }} />
+
+      <Button onClick={() => {
+        login(userEmail, userPassword);
+      }} variant="contained">Login</Button>
+
+    
+ 
+
+    </div>
+
+  )
 }
