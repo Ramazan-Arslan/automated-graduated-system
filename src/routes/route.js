@@ -8,6 +8,7 @@ import Help from '../components/help.component/help.component.js'
 import Settings from '../components/settings.component/settings.component.js'
 import Homepage from '../components/homepage.component/homepage.component.js'
 import Notification from '../components/notification.component/notification.component'
+import Login from '../components/login.component/login.component.js';
 const Routes = [
   {
     key: 1,
@@ -68,6 +69,12 @@ const Routes = [
     name: 'Notification',
     path: '/notification',
     component: Notification,
+  },
+  {
+    key: 11,
+    name: 'Login',
+    path: '/login',
+    component: Login,
   },
 ]
 

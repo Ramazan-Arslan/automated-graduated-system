@@ -1,4 +1,4 @@
 const getHostAddress = () => {
-    return 'https://192.168.1.34:8000';
+    return 'https://127.0.0.1:8000';
 }
 export default getHostAddress;
