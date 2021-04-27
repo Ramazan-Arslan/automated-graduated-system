@@ -1,12 +1,68 @@
-
-.login{
-      font-size: 50px;
-      font-weight: bold;
-      margin: 40px 20px 20px 20px;
-      text-align: start;
-     
-  }
- 
-
-  
-  
+.login {
+  position: fixed;
+  font-weight: bold;
+  text-align: start;
+  background-color: #e5e5e5;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.input-box {
+  width: 500px;
+  height: 400px;
+  background-color: #620808;
+  border-radius: 10px;
+}
+.input-items {
+  width: 350px;
+}
+.forgotPassword {
+  font-size: 11px;
+  color: hsl(0, 0%, 100%);
+  text-align: right;
+  text-decoration: underline;
+}
+.inputbox {
+  height: 40px;
+  margin-top: 12px !important;
+  width: inherit;
+  font-size: 11px;
+  background-color: #e5d8d9;
+  border-radius: 10px;
+  font-style: italic;
+}
+.login-button {
+  background-color: #e5d8d9 !important;
+  padding: 10px;
+  color: aliceblue;
+  border-radius: 50px;
+  height: 30px;
+  width: 90px;
+  left: 75%;
+}
+.iztechlogo-login {
+  width: 100px;
+  height: 100px;
+}
+.input-header {
+  width: 350px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-text {
+  color: white;
+  text-align: center;
+  font-size: 18px;
+}
+.asd {
+  margin-top: 9%;
+  margin-left: 14%;
+}
+.MuiFilledInput-input {
+  padding: 11px !important;
+}
+.password {
+}

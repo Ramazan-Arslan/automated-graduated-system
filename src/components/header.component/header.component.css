@@ -38,10 +38,23 @@
   margin-left: 20px;
 }
 .userTitle {
-  font-size: 24px;
-  margin-bottom: -12px;
   font-weight: 600;
+  font-size: 24px;
 }
 .userType {
   text-align: end;
+  font-weight: 500;
+}
+.userLogOut {
+  font-size: 24px !important;
+  color: rgb(238, 237, 237) !important;
+  margin-left: 10px;
+}
+.userLogOut:hover {
+  color: rgb(172, 13, 13) !important;
+}
+.upper {
+  display: inline-flex;
+  margin-bottom: -50px;
+  align-items: center;
 }
