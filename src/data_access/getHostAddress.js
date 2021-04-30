@@ -1,4 +1,4 @@
 const getHostAddress = () => {
-    return 'https://127.0.0.1:8000';
+    return 'https://ec2-18-223-0-35.us-east-2.compute.amazonaws.com:8000';
 }
 export default getHostAddress;
