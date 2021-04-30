@@ -1,6 +1,5 @@
 
-
 const auth = () => {
-    return false;
+    return (Boolean(localStorage.getItem('id')));
 }
 export default auth;
