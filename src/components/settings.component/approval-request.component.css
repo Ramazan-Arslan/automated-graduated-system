@@ -1,0 +1,71 @@
+.approval-request {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+  border: 2px solid brown;
+  background-color: white;
+  height: 120px;
+  width: 800px;
+  padding: 20px;
+}
+
+.userAvatar {
+  background-color: orange;
+  height: 60px !important;
+  width: 60px !important;
+}
+
+.requester-info {
+  size: 14px;
+  max-width: 240px;
+  font-size: 22px;
+  width: auto;
+}
+.requester-name {
+  padding: 0;
+  margin: 0px 0px 0px 0px;
+}
+.requester-department {
+  padding: 0;
+  margin: 0;
+}
+
+.request-topic-info {
+  margin: 0;
+  padding: 0;
+}
+
+.request-topic {
+  size: 9px;
+}
+
+.go-detail {
+  background-color: #c4c4c4 !important;
+  border-radius: 50px !important;
+  margin-left: 45% !important;
+  padding: 10px;
+  font-size: 12px !important;
+  font-weight: bold !important;
+}
+
+.decide-buttons {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px 0 10px;
+}
+
+.decide {
+  border-radius: 40px !important;
+  margin: 5px 0 5px 0 !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+
+.accept {
+  background-color: #08ef1f !important;
+}
+
+.reject {
+  background-color: #620808 !important;
+}
