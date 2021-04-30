@@ -4,7 +4,7 @@ import './forms.component.css'
 export default function Form() {
   return (
     <div className='forms'>
-      <h1>Forms</h1>
+      <h1>Formsfdsfsda</h1>
     </div>
   )
 }
