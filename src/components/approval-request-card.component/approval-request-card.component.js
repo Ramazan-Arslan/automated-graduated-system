@@ -1,8 +1,8 @@
 import React from 'react'
-import './approval-request.component.css'
+import './approval-request-card.component.css'
 import { Avatar, Button } from '@material-ui/core'
 
-export default function ApprovalRequest() {
+export default function ApprovalRequestCard() {
   return (
     <div className='approval-request'>
       <div>
