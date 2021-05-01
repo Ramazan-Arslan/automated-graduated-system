@@ -1,34 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import postRequest from '../../data_access/postRequest';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import '../../components/login.component/login.component.css'
 import iztechlogo from '../../assets/icons/iztech-logo.svg'
-import { db } from '../../data_access/config';
-import getData from '../../data_access/getData';
+import OBSController from '../../controllers/OBSController';
 
 export default function Login() {
-  const history = useHistory();
   const [userEmail, setEmail] = useState("");
   const [userPassword, setPassword] = useState("");
 
 
   async function login(email, password) {
-    if (email != "" && password != "") {
-      var obj = await loginRequest(email, password);
-      if (Boolean(obj.id)) {
-        var isFirstLogin = controlFirstLogin(obj, email);
-        if (!isFirstLogin) {
-          routeUser(obj);
-        }
-        else {
-          createUser(obj, email);
-        }
-
-      }
+    const obsController = new OBSController();
+    const obj = await obsController.authentication(email, password);
+    if (Boolean(obj.id)) {
+      routeUser(obj);
     }
-
+    else {
+      alert(obj);
+    }
   }
 
   function routeUser(obj) {
@@ -37,41 +27,6 @@ export default function Login() {
     window.location.reload(true);
   }
 
-  async function controlFirstLogin(user) {
-    var url = ('/user/' + user.type + '/' + user.id);
-    var obj = await getData(url);
-    return Boolean(obj);
-  }
-
-  async function createUser(user, email) {
-    var url = ('/user/' + user.type + '/' + user.id);
-    var ref = db.ref(url);
-    await ref.set(
-      {
-        name: user.name,
-        surname: user.surname,
-        id: user.id,
-        email: email,
-        type: user.type,
-        department: user.department
-      }
-    ).then(() => {
-      routeUser(user);
-    }
-    );
-  }
-
-
-
-  async function loginRequest(email, password) {
-    var json =
-    {
-      email: email,
-      password: password
-    }
-    var obj = await postRequest("/login", json);
-    return obj;
-  }
 
   return (
     <div className='login'>

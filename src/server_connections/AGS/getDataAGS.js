@@ -1,6 +1,6 @@
 import { db } from './config';
 
-const getData = async (url) => {
+const getDataAGS = async (url) => {
     var ref = db.ref(url);
     var obj = null;
     await ref.once('value').then(snapshot => {
@@ -11,4 +11,4 @@ const getData = async (url) => {
     return obj;
 }
 
-export default getData;
+export default getDataAGS;

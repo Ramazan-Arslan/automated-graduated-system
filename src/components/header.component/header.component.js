@@ -6,20 +6,21 @@ import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
 import { Avatar } from '@material-ui/core';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import getData from '../../data_access/getData';
+import UserController from '../../controllers/UserController';
+
 
 
 async function getStudentData(userId,userType) {
-  var url = ('/user/'+userType+'/' + userId);
-  var obj = await getData(url);
-  console.log("aa");
-  return obj;
+  const userController = new UserController();
+  const obj = await userController.takeUserInfo(userId, userType);
+  if (Boolean(obj.name)) {
+    return obj;
+  }
+  else {
+    return ({name:"Error",surname:"Error"});
+  } 
 }
 
-function click()
-{
-  window.location.reload(true);
-}
 
 
 export default function Header() {
