@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import './select-an-advisor.component.css'
 import MyTextField from '../textfield.component/mytextfield.component';
-import getData from '../../data_access/getData';
-import getAdvisors from '../../data_access/getAdvisors';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import UserController from '../../controllers/UserController';
 
-
-async function getStudentData(userId, userType) {
-  var url = ('/user/' + userType + '/' + userId);
-  var obj = await getData(url);
-  return obj;
+async function getStudentData(userId,userType) {
+  const userController = new UserController();
+  const obj = await userController.takeUserInfo(userId, userType);
+  if (Boolean(obj.name)) {
+    return obj;
+  }
+  else {
+    return ({name:"Error",surname:"Error"});
+  } 
 }
-
 async function getAdvisorList(userDepartment) {
-  var obj = await getAdvisors(userDepartment);
-  return obj;
+  const userController = new UserController();
+  const advisorsList = await userController.takeDepartmentAdvisors(userDepartment);
+  if (Boolean(advisorsList[0])) {
+    return advisorsList;
+  }
+  else {
+    return ([]);
+  } 
 }
 
 function getList(studentObject) {

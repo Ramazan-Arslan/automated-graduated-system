@@ -1,7 +1,7 @@
-import getHostAddress from '../data_access/getHostAddress';
+import getHostAddress from './getHostAddressOBS';
 import axios from 'axios';
 
-const postRequest = async (path, json) => {
+const postRequestOBS = async (path, json) => {
 
    var address = getHostAddress();
    var returnedData = null;
@@ -13,9 +13,7 @@ const postRequest = async (path, json) => {
          returnedData = response.data;
       });
    return returnedData;
-
-
 };
 
 
-export default postRequest;
+export default postRequestOBS;
