@@ -36,6 +36,21 @@ export default class UserController extends React.Component {
         }
     }
 
+    takeSpecificUserInfo = async (url) => {
+        var message = "";
+        const userService = new UserService();
+        const obj = await userService.getSpecificUserInfo(url);
+
+        if (Boolean(obj)) {
+            return obj;
+        }
+
+        else {
+            message = "Error while getting data.\n";
+            return message;
+        }
+    }
+
     takeDepartmentAdvisors = async (departmentName) => {
         var message = "";
         if (Boolean(departmentName)) {
@@ -57,6 +72,33 @@ export default class UserController extends React.Component {
             return message;
         }
     }
+
+    submitStudentProposal = async (studentId, advisorId) => {
+        if (Boolean(advisorId)) {
+            const userService = new UserService();
+            const resultMessage = await userService.setStudentProposal(studentId, advisorId);
+
+            return resultMessage;
+
+        }
+        else {
+            var message = "Advisor is not selected.\n";
+            return message;
+        }
+    }
+
+    isStudentHasAccess = async (url) => {
+        const userService = new UserService();
+        const accessResult = await userService.accessControl(url);
+        if (accessResult) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
 
 
     render() {
