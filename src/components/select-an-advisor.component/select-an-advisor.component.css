@@ -1,32 +1,57 @@
 .select-advisor {
-    top: 13%;
-    left: 22%;
-    position: fixed;
-    width: 78%;
-    height: 90%;
-    color: black;
-    background: #d4d4d4;
-    
-  }
-  .titlem{
-      font-size: 50px;
-      font-weight: bold;
-      margin: 40px 20px 20px 20px;
-      text-align: start;
-     
-  }
-  .title{
-    font-size: 14;
-  }
- .root{
-    display:flex;
-    flex: auto;
-    flex-direction: row;
-    justify-content: center;
-    overflow:auto;
-  }
-
- 
-
-  
-  
+  top: 13%;
+  left: 22%;
+  position: fixed;
+  width: 78%;
+  height: 90%;
+  color: black;
+  background: #d4d4d4;
+}
+.titlem {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 40px 20px 20px 20px;
+  text-align: start;
+}
+.title {
+  font-size: 14;
+}
+.root {
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+  justify-content: center;
+  overflow: auto;
+}
+.preview-select-advisor {
+  padding: 20px;
+  position: fixed;
+  color: black;
+  background: #d4d4d4;
+}
+.preview-title {
+  padding: 0;
+  margin: 0 0 10px 0;
+  font-size: 30px;
+  text-align: center;
+  font-weight: 500;
+}
+.preview-advisor-card {
+  background: #e5d8d9;
+  width: 500px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+.preview-selected-advisor {
+  margin-top: 10px;
+  font-weight: 700;
+}
+.preview-button {
+  font-weight: 600;
+  position: fixed;
+  background-color: #620808;
+  color: white;
+  border-radius: 20px;
+  padding: 6px;
+  left: 90%;
+}

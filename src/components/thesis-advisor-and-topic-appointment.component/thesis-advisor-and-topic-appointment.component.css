@@ -1,4 +1,4 @@
-.general-operation {
+.thesis-advisor-and-topic-appointment {
   top: 13%;
   left: 22%;
   position: fixed;
@@ -6,7 +6,7 @@
   height: 90%;
   color: black;
 }
-.advisor-selection{
+.advisor-selection {
   background: #e5d8d9;
   margin-left: 50px;
   border-radius: 10px;
@@ -14,16 +14,16 @@
   width: auto;
   max-width: 86%;
   overflow: auto;
-  float:left;
+  float: left;
 }
-.advisor-selection-title{
+.advisor-selection-title {
   font-size: 30px;
   text-align: start;
-  margin-left:20px;
+  margin-left: 20px;
   margin-bottom: 10px;
   font-weight: bold;
 }
-.select-advisor-cards{
+.select-advisor-cards {
   display: flex;
   flex-wrap: wrap;
 }
