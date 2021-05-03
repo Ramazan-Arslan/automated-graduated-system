@@ -9,6 +9,8 @@ import SelectAdvisorCard from '../select-advisor-card.component/select-advisor-c
 import Modal from '@material-ui/core/Modal'
 import { makeStyles } from '@material-ui/core/styles'
 
+
+
 async function getStudentData(userId, userType) {
   const userController = new UserController()
   const obj = await userController.takeUserInfo(userId, userType)
@@ -92,6 +94,14 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
   },
+  control: (base, state) => ({
+    ...base,
+    border: '1px solid black',
+    boxShadow: 'none',
+    '&:hover': {
+        border: '1px solid black',
+    }
+  })
 }))
 
 const flexContainer = {
@@ -127,7 +137,7 @@ export default function SelectAdvisor() {
     setContentList(getList(studentObject))
   }, [])
 
-  console.log(advisor)
+  //console.log(advisor)
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <div className='preview-select-advisor'>
@@ -135,7 +145,7 @@ export default function SelectAdvisor() {
         <MyTextField myprops={contentList} />
         <div className='preview-advisor-card'>
           <p className='preview-selected-advisor'>Selected Advisor</p>
-          {Boolean(advisor) && <SelectAdvisorCard advisor={advisor} />}
+          {Boolean(advisor) && <SelectAdvisorCard advisor={advisor} className='preview-advisorcard'/>}
         </div>
         <Button
           onClick={() => {
@@ -147,6 +157,14 @@ export default function SelectAdvisor() {
       </div>
     </div>
   )
+  const naber = {
+    control: base => ({
+      ...base,
+      border: '2px solid red',
+      // This line disable the blue border
+      boxShadow: 'none'
+    })
+  };
 
   return (
     <div className='select-advisor'>
@@ -159,16 +177,17 @@ export default function SelectAdvisor() {
         >
           {advisorList.map((tile) => (
             <ListItem 
-          
+              
               key={tile.name}
               cols={tile.cols || 1}
               onClick={() => {
-                setSelectedAdvisor(tile)
+                setSelectedAdvisor(tile);
               }}
             >
-              <SelectAdvisorCard advisor={tile} />
-              <SelectAdvisorCard advisor={tile} />
-              <SelectAdvisorCard advisor={tile} />
+              <SelectAdvisorCard  
+                advisor={tile} 
+                />
+      
             </ListItem>
           ))}
         </List>
