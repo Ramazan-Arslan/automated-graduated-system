@@ -12,7 +12,7 @@ export default function MyTextField(props){
     <div className='inputlar'>
         {props.myprops.map((varib) => 
             (
-            <div className="label">
+            <div className="label" key={varib.content}>
             <p>{varib.label}</p>
             <TextField
                   className="textfield name"

@@ -52,7 +52,7 @@ export default function Header() {
       </Router>
       <div className='userCard'>
         <Avatar alt='Remy Sharp' src='/broken-image.jpg' className='userAvatar'>
-          F
+        {userInfo.name.charAt(0)}
         </Avatar>
         <div className='userInfo'>
           <div className='upper'>
