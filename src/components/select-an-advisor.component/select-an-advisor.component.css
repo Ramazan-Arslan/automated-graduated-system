@@ -6,11 +6,12 @@
   height: 90%;
   color: black;
   background: #d4d4d4;
+
 }
 .titlem {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: bold;
-  margin: 40px 20px 20px 20px;
+  margin: 20px 20px 10px 20px;
   text-align: start;
 }
 .title {
@@ -54,4 +55,50 @@
   border-radius: 20px;
   padding: 6px;
   left: 90%;
+}
+.advisor-selection{
+  background: #e5d8d9  ;
+  border-radius: 10px  ;
+  margin-left: 20px !important;
+  padding: 10px  ;
+  width: auto  ;
+  max-width: 86%  ;
+  overflow: auto  ; 
+  float:left  ;
+  margin-top: 30px;
+
+  
+}
+.advisor-selection-title{
+  font-size: 30px;
+  text-align: start;
+  margin-left:20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.select-advisor-cards{
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+.select-advisor-cards > div {
+  margin: 20px;
+}
+.buttons{
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  position: relative;
+  top:400px;
+  right: 10%;
+
+}
+.button{
+  background-color:#620808  !important;
+  color:white  !important;
+  border-radius: 10px !important;
+  padding: 5px !important;
+  height: 42px !important;
+  font-size: 10px !important;
+  margin-top:5px !important;
+  
 }

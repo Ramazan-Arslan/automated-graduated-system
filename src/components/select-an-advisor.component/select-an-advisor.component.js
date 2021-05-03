@@ -94,6 +94,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const flexContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  padding: 0,
+};
+
 export default function SelectAdvisor() {
   var userId = localStorage.getItem('id')
   var userType = localStorage.getItem('type')
@@ -144,42 +150,54 @@ export default function SelectAdvisor() {
 
   return (
     <div className='select-advisor'>
-      <h1 className='titlem'>Select Advisor</h1>
+      <p className='titlem' >Select Advisor</p>
       <MyTextField myprops={contentList} />
-      <List
-        style={{ marginTop: 50, flexDirection: 'row', display: 'flex' }}
-        className='root'
-      >
-        {advisorList.map((tile) => (
-          <ListItem
-            key={tile.name}
-            cols={tile.cols || 1}
+      <div className="advisor-selection">
+          <p className="advisor-selection-title" style={{ marginTop:'10px',}}>Select an Advisor</p>
+          <div className="select-advisor-cards" >
+        <List style={flexContainer}
+        >
+          {advisorList.map((tile) => (
+            <ListItem 
+          
+              key={tile.name}
+              cols={tile.cols || 1}
+              onClick={() => {
+                setSelectedAdvisor(tile)
+              }}
+            >
+              <SelectAdvisorCard advisor={tile} />
+              <SelectAdvisorCard advisor={tile} />
+              <SelectAdvisorCard advisor={tile} />
+            </ListItem>
+          ))}
+        </List>
+        <br/>
+        </div>
+      </div>
+      <div className="buttons">
+          <Button
+            className="button preview"
+            disabled={isAccessible}
             onClick={() => {
-              setSelectedAdvisor(tile)
+              setOpenModal(true)
             }}
           >
-            <SelectAdvisorCard advisor={tile} />
-          </ListItem>
-        ))}
-      </List>
+            <p style={{ fontWeight: 'Bold' }}>Preview</p>
+          </Button>
+          
+          <Button
+            className="button save"
+            disabled={!isAccessible}
+            onClick={() => {
+              selectAnAdvisor(userInfo?.id, selectedAdvisor?.id)
+            }}
+          >
+            <p style={{ fontWeight: 'Bold' }}>Save Changes</p>
+          </Button>
+      </div>
 
-      <Button
-        disabled={!isAccessible}
-        onClick={() => {
-          selectAnAdvisor(userInfo?.id, selectedAdvisor?.id)
-        }}
-      >
-        <p style={{ fontWeight: 'Bold' }}>Save Changes</p>
-      </Button>
-
-      <Button
-        disabled={isAccessible}
-        onClick={() => {
-          setOpenModal(true)
-        }}
-      >
-        <p style={{ fontWeight: 'Bold' }}>Preview</p>
-      </Button>
+      
 
       <Modal
         open={modalIsOpen}
