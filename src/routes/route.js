@@ -1,9 +1,9 @@
-import AdvisorInformation from '../components/advisor-information.component/advisor-information.component'
-import StudentInformation from '../components/student-information.component/student-information.component'
-import GeneralOperation from '../components/general-operations.component/general-operations.component.js'
+import ThesisSubmission from '../components/thesis-submission.component/thesis-submission.component'
+import SelectAdvisor from '../components/select-an-advisor.component/select-an-advisor.component'
+import ThesisAdvisorAndTopicAppointment from '../components/thesis-advisor-and-topic-appointment.component/thesis-advisor-and-topic-appointment.component.js'
 import Forms from '../components/forms.component/forms.component.js'
-import Thesis from '../components/thesis.component/thesis.component.js'
-import Lessons from '../components/lessons.component/lessons.component.js'
+import ThesisAdvisorAndTopicAppointmentByEabd from '../components/thesis-advisor-and-topic-appointment-by-eabd.component/thesis-advisor-and-topic-appointment-by-eabd.component.js'
+import StudentApproval from '../components/student-approval.component/student-approval.component.js'
 import Help from '../components/help.component/help.component.js'
 import Settings from '../components/settings.component/settings.component.js'
 import Homepage from '../components/homepage.component/homepage.component.js'
@@ -11,55 +11,39 @@ import Notification from '../components/notification.component/notification.comp
 const Routes = [
   {
     key: 1,
-    name: 'Student Information',
-    path: '/studentinformation',
-    component: StudentInformation,
+    name: 'Select Advisor' /*Student Information*/,
+    usertype: 'student',
+    path: '/selectadvisor',
+    component: SelectAdvisor,
   },
   {
     key: 2,
-    name: 'General Operation',
-    path: '/generaloperation',
-    component: GeneralOperation,
+    name: 'Thesis Advisor and Topic Appointment',
+    path: '/thesisadvisorandtopicappointment',
+    usertype: 'student',
+    component: ThesisAdvisorAndTopicAppointment,
   },
   {
     key: 3,
-    name: 'Advisor Operation',
-    path: '/advisorinformation',
-    component: AdvisorInformation,
+    name: 'Thesis Submission',
+    path: '/thesissubmission',
+    usertype: 'student',
+    component: ThesisSubmission,
   },
+
   {
     key: 4,
-    name: 'Forms',
-    path: '/forms',
-    component: Forms,
+    name: 'Student Approval',
+    usertype: 'advisor',
+    path: '/studentapproval',
+    component: StudentApproval,
   },
-  {
-    key: 5,
-    name: 'Thesis',
-    path: '/thesis',
-    component: Thesis,
-  },
-  {
-    key: 6,
-    name: 'Lessons',
-    path: '/lessons',
-    component: Lessons,
-  },
-  {
-    key: 7,
-    name: 'Help',
-    path: '/help',
-    component: Help,
-  },
-  {
-    key: 8,
-    name: 'Settings',
-    path: '/settings',
-    component: Settings,
-  },
+  /*
   {
     key: 9,
     name: 'Homapage',
+    usertype: 'student',
+
     path: '/homepage',
     component: Homepage,
   },
@@ -67,10 +51,40 @@ const Routes = [
     key: 10,
     name: 'Notification',
     path: '/notification',
+    usertype: 'student',
+
     component: Notification,
   },
-  
+*/
 
+  {
+    key: 5,
+    name: 'Thesis Advisor and Topic Appointment',
+    usertype: 'eabd',
+    path: '/thesisadvisorandtopicappointmentbyeabd',
+    component: ThesisAdvisorAndTopicAppointmentByEabd,
+  },
+  {
+    key: 40,
+    name: 'Forms',
+    usertype: 'alltype',
+    path: '/forms',
+    component: Forms,
+  },
+  {
+    key: 41,
+    name: 'Help',
+    usertype: 'alltype',
+    path: '/help',
+    component: Help,
+  },
+  {
+    key: 42,
+    name: 'Settings',
+    path: '/settings',
+    usertype: 'alltype',
+    component: Settings,
+  },
 ]
 
 export default Routes

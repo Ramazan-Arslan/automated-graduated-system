@@ -6,6 +6,7 @@ import Routes from '../../routes/route.js'
 
 // %25 genişlik
 export default function SideBar() {
+  var userType = localStorage.getItem('type')
   const linkStyle = {
     color: 'white',
     textDecoration: 'none',
@@ -20,7 +21,7 @@ export default function SideBar() {
         <div>
           <ul className='ul-style'>
             {Routes.map((route) =>
-              route.key < 9 ? (
+              route.usertype == userType || route.key >= 40 ? (
                 <li className='li-style'>
                   <Link style={linkStyle} to={route.path}>
                     {route.name}
