@@ -10,7 +10,7 @@ import UserController from '../../controllers/UserController';
 
 
 
-async function getStudentData(userId,userType) {
+async function getUserData(userId,userType) {
   const userController = new UserController();
   const obj = await userController.takeUserInfo(userId, userType);
   if (Boolean(obj.name)) {
@@ -34,8 +34,8 @@ export default function Header() {
   var userType = localStorage.getItem('type');
   const [userInfo, setUserInfo] = useState(Object({name:"",surname:""}));
   useEffect(async () => {
-    var studentObject = await getStudentData(userId,userType);
-    setUserInfo(studentObject);    
+    var userObject = await getUserData(userId,userType);
+    setUserInfo(userObject);    
   },[]);
 
   return (
@@ -64,7 +64,10 @@ export default function Header() {
               icon={faSignOutAlt}
               onClick={() => {
                 localStorage.removeItem('id')
+                localStorage.removeItem('type')
+                window.history.pushState(null, "Automated Graduation System", "/")
                 window.location.reload(true)
+               
               }}
             />
           </div>

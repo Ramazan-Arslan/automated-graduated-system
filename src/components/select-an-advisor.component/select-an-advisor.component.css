@@ -6,6 +6,7 @@
   height: 90%;
   color: black;
   background: #d4d4d4;
+  overflow-y: scroll;
 
 }
 .titlem {
@@ -88,11 +89,12 @@
 }
 .buttons{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   width: 120px;
   position: relative;
   top:400px;
-  right: 10%;
+  right: 50%;
 
 }
 .button{

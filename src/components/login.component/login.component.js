@@ -24,6 +24,7 @@ export default function Login() {
   function routeUser(obj) {
     localStorage.setItem('id', obj.id);
     localStorage.setItem('type', obj.type);
+    window.history.pushState(null, "Automated Graduation System", "/")
     window.location.reload(true);
   }
 

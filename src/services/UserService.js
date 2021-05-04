@@ -38,10 +38,31 @@ export default class UserService extends React.Component {
         return obj;
     }
 
+    getStudentProposals= async(advisorId) =>
+    {
+        const userData = new UserData();
+        const obj = await userData.requestProposals(advisorId);
+        return obj;
+    }
+
+    getDecidedProposals= async(advisorId) =>
+    {
+        const userData = new UserData();
+        const obj = await userData.requestDecidedProposals(advisorId);
+        return obj;
+    }
+
     setStudentProposal = async(studentId,advisorId) =>
     {
         const userData = new UserData();
         const resultMessage = await userData.adjustStudentAdvisorInfo(studentId,advisorId);
+        return resultMessage;
+    }
+
+    setProposalDecisions = async(advisorId,acceptedList,rejectedList) =>
+    {
+        const userData = new UserData();
+        const resultMessage = await userData.adjustAdvisorProposalDecisions(advisorId,acceptedList,rejectedList);
         return resultMessage;
     }
 
