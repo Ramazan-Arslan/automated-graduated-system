@@ -58,7 +58,10 @@ export default function Login() {
                 setPassword(event.target.value)
               }}
             />
-            <p className='forgotPassword'>Forgot your password ?</p>
+            <p className='forgotPassword' onClick={ () =>
+            {
+              window.location.href = 'https://obs.iyte.edu.tr/oibs/ogrenci/login.aspx'; 
+           }}>Forgot your password ?</p>
             <Button
               className='login-button'
               onClick={() => {
