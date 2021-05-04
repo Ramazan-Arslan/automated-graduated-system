@@ -57,7 +57,7 @@ export default class UserController extends React.Component {
             const userService = new UserService();
             const advisorList = await userService.getDepartmentAdvisors(departmentName);
 
-            if (Boolean(advisorList)) {
+            if (Array.isArray(advisorList) && Boolean(advisorList[0])) {
                 return advisorList;
             }
 
@@ -73,6 +73,51 @@ export default class UserController extends React.Component {
         }
     }
 
+    takeStudentProposals = async(advisorId) =>
+    {
+        var message = "";
+        if (Boolean(advisorId)) {
+            const userService = new UserService();
+            const studentList = await userService.getStudentProposals(advisorId);
+            if (Array.isArray(studentList) && Boolean(studentList[0])) {
+                return studentList;
+            }
+
+            else {
+                message = "Error while getting data.\n";
+                return message;
+            }
+
+        }
+        else {
+            message = "Advisor id is empty.\n";
+            return message;
+        }
+    }
+
+    
+    takeDecidedProposals = async(advisorId) =>
+    {
+        var message = "";
+        if (Boolean(advisorId)) {
+            const userService = new UserService();
+            const studentList = await userService.getDecidedProposals(advisorId);
+            if (Array.isArray(studentList) && Boolean(studentList[0])) {
+                return studentList;
+            }
+
+            else {
+                message = "Error while getting data.\n";
+                return message;
+            }
+
+        }
+        else {
+            message = "Advisor id is empty.\n";
+            return message;
+        }
+    }
+
     submitStudentProposal = async (studentId, advisorId) => {
         if (Boolean(advisorId)) {
             const userService = new UserService();
@@ -83,6 +128,20 @@ export default class UserController extends React.Component {
         }
         else {
             var message = "Advisor is not selected.\n";
+            return message;
+        }
+    }
+
+    submitProposalDecisions = async (advisorId,acceptedList,rejectedList) => {
+        if (Boolean(advisorId) && (Boolean(acceptedList[0]) || Boolean(rejectedList[0])) ) {
+            const userService = new UserService();
+            const resultMessage = await userService.setProposalDecisions(advisorId,acceptedList,rejectedList);
+            console.log(resultMessage)
+            return resultMessage;
+
+        }
+        else {
+            var message = "Error with id.\n";
             return message;
         }
     }

@@ -27,28 +27,60 @@ export default class AuthService extends React.Component {
     controlFirstLogin = async (user) => {
         var url = ('/user/' + user.type + '/' + user.id);
         var obj = await getDataAGS(url);
-        return Boolean(obj);
+        return !Boolean(obj?.id);
     }
 
     createUser = async (user, email) => {
         var url = ('/user/' + user.type + '/' + user.id);
         var ref = db.ref(url);
-        await ref.set(
-            {
-                name: user.name,
-                surname: user.surname,
-                id: user.id,
-                email: email,
-                type: user.type,
-                department: user.department
-            }
-        );
+        switch (user.type) {
+            case "advisor":
+                await ref.set(
+                    {
+                        name: user.name,
+                        surname: user.surname,
+                        id: user.id,
+                        email: email,
+                        type: user.type,
+                        department: user.department,
+                        experience:user.experience                      
+                    }
+                );
+                break;
+
+            case "student":
+                await ref.set(
+                    {
+                        name: user.name,
+                        surname: user.surname,
+                        id: user.id,
+                        email: email,
+                        type: user.type,
+                        department: user.department,                      
+                    }
+                );
+                break;
+
+            case "officer":
+                await ref.set(
+                    {
+                        name: user.name,
+                        surname: user.surname,
+                        id: user.id,
+                        email: email,
+                        type: user.type,                     
+                    }
+                );
+            default:
+                break;
+        }        
+       
     }
 
     authentication = async (email, password) => {
         var obj = await this.loginRequest(email, password);
         if (Boolean(obj.id)) {
-            var isFirstLogin = this.controlFirstLogin(obj, email);
+            var isFirstLogin = await this.controlFirstLogin(obj, email);
             if (isFirstLogin) {
                 await this.createUser(obj, email);
             }

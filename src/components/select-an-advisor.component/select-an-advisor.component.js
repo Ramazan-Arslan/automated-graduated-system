@@ -4,13 +4,12 @@ import MyTextField from '../textfield.component/mytextfield.component'
 import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import UserController from '../../controllers/UserController'
 import SelectAdvisorCard from '../select-advisor-card.component/select-advisor-card.component'
 import Modal from '@material-ui/core/Modal'
 import { makeStyles } from '@material-ui/core/styles'
+import Helper from './select-an-advisor-helper';
 
-
-
+/*
 async function getStudentData(userId, userType) {
   const userController = new UserController()
   const obj = await userController.takeUserInfo(userId, userType)
@@ -25,7 +24,7 @@ async function getAdvisorsInfo(userDepartment) {
   const advisorsList = await userController.takeDepartmentAdvisors(
     userDepartment
   )
-  if (Boolean(advisorsList[0])) {
+  if (Array.isArray(advisorsList)) {
     return advisorsList
   } else {
     return []
@@ -33,6 +32,7 @@ async function getAdvisorsInfo(userDepartment) {
 }
 
 async function selectAnAdvisor(studentId, selectedAdvisorId) {
+
   const userController = new UserController()
   const resultMessage = await userController.submitStudentProposal(
     studentId,
@@ -45,6 +45,30 @@ async function selectAnAdvisor(studentId, selectedAdvisorId) {
     alert(resultMessage)
   }
 }
+
+
+async function getPreviewData(studentObject) {
+  const userController = new UserController()
+  var advisorId = studentObject?.advisor?.advisorId
+  var advisorObject = null
+  if (Boolean(advisorId)) {
+    var url = 'user/advisor/' + advisorId
+    advisorObject = await userController.takeSpecificUserInfo(url)
+  }
+  return advisorObject
+}*/
+
+
+async function selectAnAdvisor(studentId, selectedAdvisorId) {
+  const result = await Helper.selectAnAdvisor(studentId, selectedAdvisorId)
+  if (result === 'Proposal is sent') {
+    alert(result)
+    window.location.reload(true)
+  } else {
+    alert(result)
+  }
+}
+
 
 function getList(studentObject) {
   var mycontentlist = [
@@ -64,16 +88,6 @@ function getList(studentObject) {
   return mycontentlist
 }
 
-async function getPreviewData(studentObject) {
-  const userController = new UserController()
-  var advisorId = studentObject?.advisor?.advisorId
-  var advisorObject = null
-  if (Boolean(advisorId)) {
-    var url = 'user/advisor/' + advisorId
-    advisorObject = await userController.takeSpecificUserInfo(url)
-  }
-  return advisorObject
-}
 
 function getModalStyle() {
   const top = 50
@@ -99,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid black',
     boxShadow: 'none',
     '&:hover': {
-        border: '1px solid black',
+      border: '1px solid black',
     }
   })
 }))
@@ -127,17 +141,15 @@ export default function SelectAdvisor() {
   const [modalStyle] = React.useState(getModalStyle)
 
   useEffect(async () => {
-    var studentObject = await getStudentData(userId, userType)
+    var studentObject = await Helper.getStudentData(userId, userType)
     setAccesibility(!Boolean(studentObject?.advisor?.status))
     setUserInfo(studentObject)
-    var advisorList = await getAdvisorsInfo(studentObject.department)
+    var advisorList = await Helper.getAdvisorsInfo(studentObject.department)
     setAdvisorList(advisorList)
-    var gottenAdvisor = await getPreviewData(studentObject)
+    var gottenAdvisor = await Helper.getPreviewData(studentObject)
     setAdvisor(gottenAdvisor)
     setContentList(getList(studentObject))
   }, [])
-
-  //console.log(advisor)
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <div className='preview-select-advisor'>
@@ -145,7 +157,7 @@ export default function SelectAdvisor() {
         <MyTextField myprops={contentList} />
         <div className='preview-advisor-card'>
           <p className='preview-selected-advisor'>Selected Advisor</p>
-          {Boolean(advisor) && <SelectAdvisorCard advisor={advisor} className='preview-advisorcard'/>}
+          {Boolean(advisor) && <SelectAdvisorCard advisor={advisor} className='preview-advisorcard' />}
         </div>
         <Button
           onClick={() => {
@@ -157,66 +169,53 @@ export default function SelectAdvisor() {
       </div>
     </div>
   )
-  const naber = {
-    control: base => ({
-      ...base,
-      border: '2px solid red',
-      // This line disable the blue border
-      boxShadow: 'none'
-    })
-  };
 
   return (
     <div className='select-advisor'>
       <p className='titlem' >Select Advisor</p>
       <MyTextField myprops={contentList} />
       <div className="advisor-selection">
-          <p className="advisor-selection-title" style={{ marginTop:'10px',}}>Select an Advisor</p>
-          <div className="select-advisor-cards" >
-        <List style={flexContainer}
-        >
-          {advisorList.map((tile) => (
-            <ListItem 
-              
-              key={tile.name}
-              cols={tile.cols || 1}
-              onClick={() => {
-                setSelectedAdvisor(tile);
-              }}
-            >
-              <SelectAdvisorCard  
-                advisor={tile} 
-                />
-      
-            </ListItem>
-          ))}
-        </List>
-        <br/>
+        <p className="advisor-selection-title" style={{ marginTop: '10px', }}>Select an Advisor</p>
+        <div className="select-advisor-cards">
+          <List style={flexContainer}>
+            {advisorList.map((tile) => (
+
+              <ListItem
+                key={tile.name}
+                cols={tile.cols || 1}
+                onClick={() => {
+                  setSelectedAdvisor(Boolean(selectedAdvisor) ? null : tile)
+                }}>
+                <SelectAdvisorCard advisor={tile} />
+              </ListItem>
+            ))}
+          </List>
+          <br />
         </div>
       </div>
       <div className="buttons">
-          <Button
-            className="button preview"
-            disabled={isAccessible}
-            onClick={() => {
-              setOpenModal(true)
-            }}
-          >
-            <p style={{ fontWeight: 'Bold' }}>Preview</p>
-          </Button>
-          
-          <Button
-            className="button save"
-            disabled={!isAccessible}
-            onClick={() => {
-              selectAnAdvisor(userInfo?.id, selectedAdvisor?.id)
-            }}
-          >
-            <p style={{ fontWeight: 'Bold' }}>Save Changes</p>
-          </Button>
+        <Button
+          className="button preview"
+          disabled={isAccessible}
+          onClick={() => {
+            setOpenModal(true)
+          }}
+        >
+          <p style={{ fontWeight: 'Bold' }}>Preview</p>
+        </Button>
+
+        <Button
+          className="button save"
+          disabled={!isAccessible}
+          onClick={() => {
+            selectAnAdvisor(userInfo?.id, selectedAdvisor?.id)
+          }}
+        >
+          <p style={{ fontWeight: 'Bold' }}>Save Changes</p>
+        </Button>
       </div>
 
-      
+
 
       <Modal
         open={modalIsOpen}
