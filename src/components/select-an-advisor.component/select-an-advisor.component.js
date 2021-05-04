@@ -12,8 +12,8 @@ import Helper from './select-an-advisor-helper';
 
 async function selectAnAdvisor(studentId, selectedAdvisorId) {
   const result = await Helper.selectAnAdvisor(studentId, selectedAdvisorId)
-  if (result === 'Proposal is sent') {
-    alert(result)
+  if (result === 'Success') {
+    alert("Advisor is selected. Proposal is sent.")
     window.location.reload(true)
   } else {
     alert(result)
