@@ -148,7 +148,11 @@ export default function StudentApproval() {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            padding: 0,
+            padding: '200px',
+            
+          
+
+
           }}
         >
           {list.map((tile) => (
