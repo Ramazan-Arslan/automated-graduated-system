@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import {Prompt} from 'react-router-dom'
 import './select-an-advisor.component.css'
 import MyTextField from '../textfield.component/mytextfield.component'
 import Button from '@material-ui/core/Button'
@@ -8,56 +9,6 @@ import SelectAdvisorCard from '../select-advisor-card.component/select-advisor-c
 import Modal from '@material-ui/core/Modal'
 import { makeStyles } from '@material-ui/core/styles'
 import Helper from './select-an-advisor-helper';
-
-/*
-async function getStudentData(userId, userType) {
-  const userController = new UserController()
-  const obj = await userController.takeUserInfo(userId, userType)
-  if (Boolean(obj.name)) {
-    return obj
-  } else {
-    return { name: 'Error', surname: 'Error' }
-  }
-}
-async function getAdvisorsInfo(userDepartment) {
-  const userController = new UserController()
-  const advisorsList = await userController.takeDepartmentAdvisors(
-    userDepartment
-  )
-  if (Array.isArray(advisorsList)) {
-    return advisorsList
-  } else {
-    return []
-  }
-}
-
-async function selectAnAdvisor(studentId, selectedAdvisorId) {
-
-  const userController = new UserController()
-  const resultMessage = await userController.submitStudentProposal(
-    studentId,
-    selectedAdvisorId
-  )
-  if (resultMessage === 'Proposal is sent') {
-    alert(resultMessage)
-    window.location.reload(true)
-  } else {
-    alert(resultMessage)
-  }
-}
-
-
-async function getPreviewData(studentObject) {
-  const userController = new UserController()
-  var advisorId = studentObject?.advisor?.advisorId
-  var advisorObject = null
-  if (Boolean(advisorId)) {
-    var url = 'user/advisor/' + advisorId
-    advisorObject = await userController.takeSpecificUserInfo(url)
-  }
-  return advisorObject
-}*/
-
 
 async function selectAnAdvisor(studentId, selectedAdvisorId) {
   const result = await Helper.selectAnAdvisor(studentId, selectedAdvisorId)
@@ -213,7 +164,14 @@ export default function SelectAdvisor() {
         >
           <p style={{ fontWeight: 'Bold' }}>Save Changes</p>
         </Button>
+
+        <Prompt
+        when={!Boolean(advisor) &&  Boolean(selectedAdvisor)}
+        message="Changes are not saved. Want to leave?"
+      />
       </div>
+
+      
 
 
 

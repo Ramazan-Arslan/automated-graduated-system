@@ -142,7 +142,7 @@ export default class UserData extends React.Component {
                             status: "Sent"
                         });
                 });
-                returnMessage = "Proposal is sent";
+                returnMessage = "Advisor is selected. Proposal is sent.";
             }
             else {
                 returnMessage = "A proposal was sent already."

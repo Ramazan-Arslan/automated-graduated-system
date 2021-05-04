@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import {Prompt} from 'react-router-dom'
 import './student-approval.component.css'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -7,41 +8,7 @@ import { Avatar, Button } from '@material-ui/core'
 import Modal from '@material-ui/core/Modal'
 import Helper from './student-approval-helper';
 
-/*
-async function getStudentsInfo(advisorId) {
-  const userController = new UserController()
-  const studentList = await userController.takeStudentProposals(advisorId)
-  if (Array.isArray(studentList)) {
-    return studentList;
-  } else {
-    return []
-  }
-}*/
-/*
-async function submitProposalDecisions(advisorId, acceptedList, rejectedList) {
-  const userController = new UserController()
-  const result = await userController.submitProposalDecisions(advisorId, acceptedList, rejectedList)
-  if (result.length > 0) {
-    alert("Succesfull.")
-    window.location.reload(true)
-  }
-  else {
-    alert("Some data are not set.")
-  }
-}*/
 
-
-/*
-async function getPreviewData(advisorId) {
-  const userController = new UserController()
-  const proposals = await userController.takeDecidedProposals(advisorId);
-
-  if (Array.isArray(proposals)) {
-    return proposals;
-  } else {
-    return []
-  }
-}*/
 
 async function submitProposalDecisions(advisorId, acceptedList, rejectedList) {
   const result = await Helper.submitProposalDecisions(advisorId, acceptedList, rejectedList)
@@ -201,6 +168,11 @@ export default function StudentApproval() {
         {getPreviewView(previewData)}
 
       </Modal>
+
+      <Prompt
+        when={Boolean(acceptedList[0]) || Boolean(rejectedList[0])}
+        message="Changes are not saved. Want to leave?"
+      />
     </div>
   )
 }

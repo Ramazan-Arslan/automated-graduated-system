@@ -127,7 +127,7 @@ export default class UserController extends React.Component {
 
         }
         else {
-            var message = "Advisor is not selected.\n";
+            var message = "You should select an advisor.\n";
             return message;
         }
     }
