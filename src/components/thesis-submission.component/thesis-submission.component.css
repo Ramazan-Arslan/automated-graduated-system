@@ -5,4 +5,41 @@
   width: 78%;
   height: 90%;
   color: black;
+  background: #d4d4d4;
+  flex-direction: column;
+}
+.thesis-submission-topic {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 20px 20px 10px 20px;
+  text-align: start;
+}
+.input-file {
+  background: #e5d8d9;
+  border-radius: 10px;
+  margin-left: 20px !important;
+  padding: 10px 15px 15px 15px;
+  width: auto;
+  float: left;
+  margin-top: 10px;
+}
+.thesis-submission-upload {
+  font-weight: bold;
+  margin: 5px 0 10px 0;
+  font-size: 20px;
+  text-align: start;
+}
+.thesis-submission-buttons {
+  position: relative;
+  left: 20%;
+  top: 36%;
+}
+.textfield-locked-inputs {
+  width: 78%;
+}
+.MuiDropzoneArea-root {
+  min-height: 200px !important;
+  width: 300px !important;
+  padding: 10px 30px !important;
+  margin-right: 0;
 }
