@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {Prompt} from 'react-router-dom'
+import { Prompt } from 'react-router-dom'
 import './select-an-advisor.component.css'
 import MyTextField from '../textfield.component/mytextfield.component'
 import Button from '@material-ui/core/Button'
@@ -8,18 +8,17 @@ import ListItem from '@material-ui/core/ListItem'
 import SelectAdvisorCard from '../select-advisor-card.component/select-advisor-card.component'
 import Modal from '@material-ui/core/Modal'
 import { makeStyles } from '@material-ui/core/styles'
-import Helper from './select-an-advisor-helper';
+import Helper from './select-an-advisor-helper'
 
 async function selectAnAdvisor(studentId, selectedAdvisorId) {
   const result = await Helper.selectAnAdvisor(studentId, selectedAdvisorId)
   if (result === 'Success') {
-    alert("Advisor is selected. Proposal is sent.")
+    alert('Advisor is selected. Proposal is sent.')
     window.location.reload(true)
   } else {
     alert(result)
   }
 }
-
 
 function getList(studentObject) {
   var mycontentlist = [
@@ -38,7 +37,6 @@ function getList(studentObject) {
   ]
   return mycontentlist
 }
-
 
 function getModalStyle() {
   const top = 50
@@ -65,15 +63,15 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: 'none',
     '&:hover': {
       border: '1px solid black',
-    }
-  })
+    },
+  }),
 }))
 
 const flexContainer = {
   display: 'flex',
   flexDirection: 'row',
   padding: 0,
-};
+}
 
 export default function SelectAdvisor() {
   var userId = localStorage.getItem('id')
@@ -108,7 +106,12 @@ export default function SelectAdvisor() {
         <MyTextField myprops={contentList} />
         <div className='preview-advisor-card'>
           <p className='preview-selected-advisor'>Selected Advisor</p>
-          {Boolean(advisor) && <SelectAdvisorCard advisor={advisor} className='preview-advisorcard' />}
+          {Boolean(advisor) && (
+            <SelectAdvisorCard
+              advisor={advisor}
+              className='preview-advisorcard'
+            />
+          )}
         </div>
         <Button
           onClick={() => {
@@ -123,20 +126,22 @@ export default function SelectAdvisor() {
 
   return (
     <div className='select-advisor'>
-      <p className='titlem' >Select Advisor</p>
+      <p className='titlem'>Select Advisor</p>
       <MyTextField myprops={contentList} />
-      <div className="advisor-selection">
-        <p className="advisor-selection-title" style={{ marginTop: '10px', }}>Select an Advisor</p>
-        <div className="select-advisor-cards">
+      <div className='advisor-selection'>
+        <p className='advisor-selection-title' style={{ marginTop: '10px' }}>
+          Select an Advisor
+        </p>
+        <div className='select-advisor-cards'>
           <List style={flexContainer}>
             {advisorList.map((tile) => (
-
               <ListItem
                 key={tile.name}
                 cols={tile.cols || 1}
                 onClick={() => {
                   setSelectedAdvisor(Boolean(selectedAdvisor) ? null : tile)
-                }}>
+                }}
+              >
                 <SelectAdvisorCard advisor={tile} />
               </ListItem>
             ))}
@@ -144,9 +149,9 @@ export default function SelectAdvisor() {
           <br />
         </div>
       </div>
-      <div className="buttons">
+      <div className='buttons'>
         <Button
-          className="button preview"
+          className='button preview'
           disabled={isAccessible}
           onClick={() => {
             setOpenModal(true)
@@ -156,7 +161,7 @@ export default function SelectAdvisor() {
         </Button>
 
         <Button
-          className="button save"
+          className='button save'
           disabled={!isAccessible}
           onClick={() => {
             selectAnAdvisor(userInfo?.id, selectedAdvisor?.id)
@@ -166,14 +171,10 @@ export default function SelectAdvisor() {
         </Button>
 
         <Prompt
-        when={!Boolean(advisor) &&  Boolean(selectedAdvisor)}
-        message="Changes are not saved. Want to leave?"
-      />
+          when={!Boolean(advisor) && Boolean(selectedAdvisor)}
+          message='Changes are not saved. Want to leave?'
+        />
       </div>
-
-      
-
-
 
       <Modal
         open={modalIsOpen}

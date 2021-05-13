@@ -15,6 +15,8 @@ iconlar için
 ## yarn add react-router-dom
 router için
 
+## yarn add material-ui-dropzone
+dropzone için
 
 
 
