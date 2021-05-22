@@ -1,0 +1,105 @@
+.jury-appoinment-by-advisor {
+  top: 13%;
+  left: 22%;
+  position: fixed;
+  width: 78%;
+  height: 90%;
+  color: black;
+  background: #d4d4d4;
+}
+.default-inputlar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+  justify-content: center;
+}
+.default-label {
+  width: 250px;
+  background: #e5d8d9;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  text-align: start;
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+.default-label p {
+  font-weight: 500;
+  color: 333;
+  padding: 5px;
+  margin: 0;
+}
+.MuiInputBase-input {
+  margin-left: 10px !important;
+}
+
+.default-textfield {
+  width: 250px;
+  font-size: 20px;
+  background-color: white;
+  border-radius: 10px;
+  font-style: italic;
+}
+.jury-appointment-content {
+  display: flex;
+  flex-direction: column;
+}
+.table-p {
+  display: flex;
+  justify-content: space-around;
+}
+.table-textfield {
+  width: 200px;
+  font-size: 10px;
+  background-color: white;
+  border-radius: 4px;
+  font-style: italic;
+}
+.add-jury {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  background: #e5d8d9;
+  height: fit-content;
+  border: black; /*border eklenemedi*/
+}
+.add-jury-ul {
+  list-style: none;
+}
+.jury-appointment-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 50px;
+}
+.send-back {
+  background-color: #3551b7 !important;
+}
+.thesis-defense-preview-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.thesis-defense-preview-title {
+  margin-left: 50px;
+}
+.makeStyles-root-1 > * {
+  padding: 0;
+}
+.thesis-defense-header {
+  text-align: start;
+  margin-left: 20px;
+}
+.jury-adding {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+.table-content {
+  margin-top: 20px;
+}

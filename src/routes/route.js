@@ -8,6 +8,7 @@ import Help from '../components/help.component/help.component.js'
 import Settings from '../components/settings.component/settings.component.js'
 import Homepage from '../components/homepage.component/homepage.component.js'
 import Notification from '../components/notification.component/notification.component'
+import JuryAppointmentByAdvisor from '../components/thesis-defense-jury-appointment-by-advisor.component/thesis-defense-jury-appointment-by-advisor.component'
 const Routes = [
   {
     key: 1,
@@ -32,11 +33,18 @@ const Routes = [
   },
 
   {
-    key: 4,
+    key: 10,
     name: 'Student Approval',
     usertype: 'advisor',
     path: '/studentapproval',
     component: StudentApproval,
+  },
+  {
+    key: 11,
+    name: 'Jury Appointment',
+    usertype: 'advisor',
+    path: '/juryappointmentbyadvisor',
+    component: JuryAppointmentByAdvisor,
   },
   /*
   {
@@ -58,7 +66,7 @@ const Routes = [
 */
 
   {
-    key: 5,
+    key: 20,
     name: 'Thesis Advisor and Topic Appointment',
     usertype: 'eabd',
     path: '/thesisadvisorandtopicappointmentbyeabd',
