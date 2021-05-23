@@ -9,6 +9,7 @@ import Settings from '../components/settings.component/settings.component.js'
 import Homepage from '../components/homepage.component/homepage.component.js'
 import Notification from '../components/notification.component/notification.component'
 import JuryAppointmentByAdvisor from '../components/thesis-defense-jury-appointment-by-advisor.component/thesis-defense-jury-appointment-by-advisor.component'
+import JuryReportByEABD from '../components/jury-report-eabd.component/jury-report-eabd.component'
 const Routes = [
   {
     key: 1,
@@ -71,6 +72,13 @@ const Routes = [
     usertype: 'eabd',
     path: '/thesisadvisorandtopicappointmentbyeabd',
     component: ThesisAdvisorAndTopicAppointmentByEabd,
+  },
+  {
+    key: 46 /*It should be 21!!!!!*/,
+    name: 'Thesis Defense Exam Jury Report',
+    usertype: 'eabd',
+    path: '/thesisdefenseexamjuryreport',
+    component: JuryReportByEABD,
   },
   {
     key: 40,
