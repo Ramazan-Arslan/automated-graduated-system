@@ -12,28 +12,30 @@ export default function ThesisAdvisorAndTopicAppointmentByEabd() {
       label: 'Name Surname',
       content: 'studentObject.name' + ' ' + 'studentObject.surname',
     },
-    {
-      label: 'Program',
-      content: 'Master',
-    },
+
     {
       label: 'Student ID',
-      content: 'studentObject.id',
-    },
-    {
-      label: 'Thesis Topic',
       content: 'studentObject.id',
     },
     {
       label: 'Advisor Name',
       content: 'studentObject.id',
     },
+    {
+      label: 'Thesis Topic',
+      content: 'studentObject.id',
+    },
+
+    {
+      label: 'Program',
+      content: 'Master',
+    },
   ]
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
       width: 1150,
-      height: 600,
+      height: 500,
       backgroundColor: '#d4d4d4',
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -83,8 +85,9 @@ export default function ThesisAdvisorAndTopicAppointmentByEabd() {
       <p className='tnt-appointment-topic'>
         Thesis Advisor And Topic Appointment
       </p>
-      <MyTextField myprops={contentList} />
-
+      <div className='tnt-eabd-default-values'>
+        <MyTextField myprops={contentList} />
+      </div>
       <div className='tnt-appointment-buttons'>
         <Button
           className='button preview'
@@ -96,7 +99,7 @@ export default function ThesisAdvisorAndTopicAppointmentByEabd() {
         </Button>
 
         <Button className='button save'>
-          <p style={{ fontWeight: 'Bold' }}>Save Changes</p>
+          <p style={{ fontWeight: 'Bold' }}>Submit</p>
         </Button>
       </div>
 
