@@ -5,28 +5,68 @@
   width: 78%;
   height: 90%;
   color: black;
+  background: #d4d4d4;
 }
-.advisor-selection {
-  background: #e5d8d9;
-  margin-left: 50px;
-  border-radius: 10px;
-  padding: 10px;
-  width: auto;
-  max-width: 86%;
-  overflow: auto;
-  float: left;
-}
-.advisor-selection-title {
-  font-size: 30px;
-  text-align: start;
-  margin-left: 20px;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-.select-advisor-cards {
+
+.tnt-std-default-inputlar {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+  justify-content: center;
 }
-.select-advisor-cards > div {
-  margin: 20px;
+.tnt-std-appointment-topic {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 20px 20px 30px 20px;
+  text-align: start;
+}
+.tnt-std-default-label {
+  width: 250px;
+  background: #e5d8d9;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  text-align: start;
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+.tnt-std-default-label p {
+  font-weight: 500;
+  color: 333;
+  padding: 5px;
+  margin: 0;
+}
+
+.tnt-std-default-textfield {
+  width: 250px;
+  font-size: 20px;
+  background-color: white;
+  border-radius: 10px;
+  font-style: italic;
+}
+
+.tnt-std-appointment-buttons {
+  position: relative;
+  left: 30%;
+  top: 10%;
+}
+
+.tnt-std-input-header {
+  font-weight: 500;
+  color: 333;
+  padding: 5px;
+  margin: 0;
+}
+.tnt-std-input {
+  width: 250px;
+  background: #e5d8d9;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  text-align: start;
+  margin-left: 10px;
+  margin-bottom: 15px;
 }

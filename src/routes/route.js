@@ -47,34 +47,16 @@ const Routes = [
     path: '/juryappointmentbyadvisor',
     component: JuryAppointmentByAdvisor,
   },
-  /*
-  {
-    key: 9,
-    name: 'Homapage',
-    usertype: 'student',
-
-    path: '/homepage',
-    component: Homepage,
-  },
-  {
-    key: 10,
-    name: 'Notification',
-    path: '/notification',
-    usertype: 'student',
-
-    component: Notification,
-  },
-*/
 
   {
-    key: 45 /*It should be 20!!!!!*/,
+    key: 20,
     name: 'Thesis Advisor and Topic Appointment',
     usertype: 'eabd',
     path: '/thesisadvisorandtopicappointmentbyeabd',
     component: ThesisAdvisorAndTopicAppointmentByEabd,
   },
   {
-    key: 46 /*It should be 21!!!!!*/,
+    key: 21,
     name: 'Thesis Defense Exam Jury Report',
     usertype: 'eabd',
     path: '/thesisdefenseexamjuryreport',
