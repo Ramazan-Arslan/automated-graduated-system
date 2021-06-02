@@ -6,3 +6,50 @@
   height: 90%;
   color: black;
 }
+
+
+.tnt-std-default-inputlar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+  justify-content: center;
+}
+.tnt-std-default-label {
+  width: 250px;
+  background: #e5d8d9;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  text-align: start;
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+
+.tnt-std-default-textfield {
+  width: 250px;
+  font-size: 20px;
+  background-color: white;
+  border-radius: 10px;
+  font-style: italic;
+}
+
+.tnt-std-input-header {
+  font-weight: 500;
+  color: 333;
+  padding: 5px;
+  margin: 0;
+}
+.tnt-std-input {
+  width: 250px;
+  background: #e5d8d9;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  text-align: start;
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+

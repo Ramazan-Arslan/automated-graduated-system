@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './thesis-advisor-and-topic-appointment.component.css'
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -6,51 +6,87 @@ import Modal from '@material-ui/core/Modal'
 import Lock from '@material-ui/icons/Lock'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import TextField from '@material-ui/core/TextField'
+import Helper from './thesis-advisor-and-topic-appointment.component-helper'
+
+
+async function canFormBeFilled(studentId, formId) {
+  var canFormBeFilled = await Helper.isFormAccessible(studentId, formId)
+  return canFormBeFilled;
+}
+
+async function receiveFormData(studentId, formId) {
+  var studentObject = await Helper.getStudentData(studentId)
+  var advisorObject = await Helper.getAdvisorData(studentId)
+  var formObject = await Helper.getFormData(studentId, formId)
+
+  var json = {
+    studentName: studentObject.name,
+    studentSurname: studentObject.surname,
+    studentId: studentObject.id,
+    program: "Master",
+    advisorName: advisorObject.name,
+    advisorSurname: advisorObject.surname,
+    thesisName: formObject?.thesisName,
+  }
+
+  return json
+}
+
 
 export default function ThesisAdvisorAndTopicAppointment() {
+  var userId = localStorage.getItem('id')
+  var userType = localStorage.getItem('type')
+
   const [modalIsOpen, setOpenModal] = useState(false)
   const [thesisTopic, setThesisTopic] = useState('')
-  let contentList = [
-    {
-      label: 'Name Surname',
-      content: 'studentObject.name' + ' ' + 'studentObject.surname',
-    },
-    {
-      label: 'Student ID',
-      content: 'studentObject.id',
-    },
-    {
-      label: 'Advisor Name',
-      content: 'studentObject.id',
-    },
-    {
-      label: 'Program',
-      content: 'Master',
-    },
-  ]
+  const [form, setForm] = useState(null)
+  const [contentList, setContentList] = useState(null)
+  const [formIsAccessible, setFormIsAccessible] = useState(false)
 
-  let contentListUpdated = [
-    {
-      label: 'Name Surname',
-      content: 'studentObject.name' + ' ' + 'studentObject.surname',
-    },
-    {
-      label: 'Student ID',
-      content: 'studentObject.id',
-    },
-    {
-      label: 'Advisor Name',
-      content: 'studentObject.id',
-    },
-    {
-      label: 'Thesis Topic',
-      content: 'studentObject.id',
-    },
-    {
-      label: 'Program',
-      content: 'Master',
-    },
-  ]
+  useEffect(async () => {
+    var formData = await receiveFormData(userId, "Form_TD")
+    setForm(formData)
+    var isAccessible = await canFormBeFilled(userId, "Form_TD")
+    setFormIsAccessible(isAccessible)
+    setThesisTopic(formData.thesisName)
+    setContentListData(formData);
+  }, [])
+
+
+  function setContentListData(formData) {
+    let contentList = [
+      {
+        label: 'Name Surname',
+        content: formData.studentName + " " + formData.studentSurname
+      },
+      {
+        label: 'Student ID',
+        content: formData.studentId
+      },
+      {
+        label: 'Advisor Name',
+        content: formData.advisorName + " " + formData.advisorSurname
+      },
+      {
+        label: 'Program',
+        content: formData.program,
+      },
+    ]
+
+    setContentList(contentList);
+  }
+
+  async function submitFormData() {
+
+    form["thesisName"] = thesisTopic;
+    form["status"] = "Sent"
+    form["formName"] = "Thesis Advisor and Topic Appointment Form"
+    form["formId"] = "Form_TD"
+    await Helper.setFormData(userId, form)
+  }
+
+
+
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
@@ -83,15 +119,15 @@ export default function ThesisAdvisorAndTopicAppointment() {
     }
   }
 
-  const body = (
+  const modalView = (
     <div style={modalStyle} className={classes.paper}>
       <div>
         <p className='tnt-std-appointment-topic'>
           Thesis Advisor And Topic Appointment (Preview)
-        </p>
-        <div className='tnt-std-default-inputlar'>
-          {contentListUpdated.map((varib) => (
-            <div className='default-label' key={varib.content}>
+    </p>
+        {Boolean(contentList) && <div className='tnt-std-default-inputlar'>
+          {contentList.map((varib) => (
+            <div className='tnt-std-default-label' key={varib.content}>
               <p>{varib.label}</p>
               <TextField
                 className='tnt-std-default-textfield name'
@@ -109,8 +145,21 @@ export default function ThesisAdvisorAndTopicAppointment() {
               />
             </div>
           ))}
+        </div>}
+        <div className='tnt-std-input'>
+          <p className='tnt-std-input-header'>Thesis Topic</p>
+          <TextField
+            className='tnt-std-default-textfield name'
+            id='standard-basic'
+            disabled
+            label=''
+            value={thesisTopic}
+            onChange={(event) => setThesisTopic(event.target.value)}
+          />
         </div>
+
       </div>
+
       <Button
         onClick={() => {
           setOpenModal(false)
@@ -125,7 +174,7 @@ export default function ThesisAdvisorAndTopicAppointment() {
       <p className='tnt-std-appointment-topic'>
         Thesis Advisor And Topic Appointment
       </p>
-      <div className='tnt-std-default-inputlar'>
+      {Boolean(contentList) && <div className='tnt-std-default-inputlar'>
         {contentList.map((varib) => (
           <div className='tnt-std-default-label' key={varib.content}>
             <p>{varib.label}</p>
@@ -145,12 +194,13 @@ export default function ThesisAdvisorAndTopicAppointment() {
             />
           </div>
         ))}
-      </div>
+      </div>}
       <div className='tnt-std-input'>
         <p className='tnt-std-input-header'>Thesis Topic</p>
         <TextField
           className='tnt-std-default-textfield name'
           id='standard-basic'
+          disabled={!Boolean(formIsAccessible)}
           label=''
           value={thesisTopic}
           onChange={(event) => setThesisTopic(event.target.value)}
@@ -158,6 +208,7 @@ export default function ThesisAdvisorAndTopicAppointment() {
       </div>
       <div className='tnt-std-appointment-buttons'>
         <Button
+          disabled={formIsAccessible}
           className='button preview'
           onClick={() => {
             setOpenModal(true)
@@ -166,7 +217,12 @@ export default function ThesisAdvisorAndTopicAppointment() {
           <p style={{ fontWeight: 'Bold' }}>Preview</p>
         </Button>
 
-        <Button className='button save'>
+        <Button className='button save'
+          disabled={!formIsAccessible}
+          onClick={() => {
+            submitFormData(true)
+          }}
+        >
           <p style={{ fontWeight: 'Bold' }}>Submit</p>
         </Button>
       </div>
@@ -176,7 +232,7 @@ export default function ThesisAdvisorAndTopicAppointment() {
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
       >
-        {body}
+        {modalView}
       </Modal>
     </div>
   )

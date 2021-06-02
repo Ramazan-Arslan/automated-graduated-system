@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './thesis-defense-jury-appointment-by-advisor.component.css'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -6,40 +6,89 @@ import { Button } from '@material-ui/core'
 import Lock from '@material-ui/icons/Lock'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Modal from '@material-ui/core/Modal'
+import Helper from './thesis-defense-jury-appointment-by-advisor-helper.component'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-  paper: {
-    position: 'absolute',
-    width: 1000,
-    height: 600,
-    backgroundColor: '#d4d4d4',
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-  },
-  control: (base, state) => ({
-    ...base,
-    border: '1px solid black',
-    boxShadow: 'none',
-    '&:hover': {
-      border: '1px solid black',
-    },
-  }),
-}))
+async function canFormBeFilled(studentId, formId) {
+  var canFormBeFilled = await Helper.isFormAccessible(studentId, formId)
+  return canFormBeFilled;
+}
+
+async function receiveFormData(studentId, formId) {
+
+  var studentObject = await Helper.getStudentData(studentId)
+  var advisorObject = await Helper.getAdvisorData(studentId)
+  var formObject = await Helper.getFormData(studentId, formId)
+  var thesisName = await Helper.getThesisName(studentId)
+
+  var json = {
+    studentName: studentObject.name,
+    studentSurname: studentObject.surname,
+    studentId: studentObject.id,
+    program: "Master",
+    advisorName: advisorObject.name,
+    advisorSurname: advisorObject.surname,
+    thesisName: thesisName,
+    juryList: formObject?.juryList
+  }
+
+  return json
+}
+
+
 
 export default function JuryAppointmentByAdvisor() {
+  var userId = localStorage.getItem('id')
+  var userType = localStorage.getItem('type')
+  var formStudentId = localStorage.getItem('FormStudentId')
+  const [user, setUser] = useState({ id: "", type: "" })
+  const [studentId, setSutdentId] = useState("")
+  const [form, setForm] = useState(null)
+  const [contentList, setContentList] = useState(null)
+  const [formIsAccessible, setFormIsAccessible] = useState(false)
   const [modalIsOpen, setOpenModal] = useState(false)
-
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     name: '',
     institute: '',
     department: '',
   })
+  const [juryList, setJuryList] = useState([])
+
+  useEffect(async () => {
+    setUser({ id: userId, type: userType })
+    setSutdentId(formStudentId)
+    var formData = await receiveFormData(formStudentId, "Form_TJ")
+    setForm(formData)
+    var isAccessible = await canFormBeFilled(formStudentId, "Form_TJ")
+    setFormIsAccessible(isAccessible)
+    setContentListData(formData);
+    adjustJuryList(formData.juryList)
+  }, [])
+
+
+  function adjustJuryList(juries) {
+    if (Boolean(juries)) {
+      Object.values(juries).map(juryJson => {
+        let jury = {
+          name: juryJson.name,
+          institute: juryJson.institute,
+          department: juryJson.department,
+        }
+        setJuryList((juryList) => [...juryList, jury])
+      })
+    }
+
+  }
+
+  async function submitFormData() {
+
+    form["status"] = "Sent"
+    form["formName"] = "Thesis Defense Jury Appointment Form"
+    form["formId"] = "Form_TJ"
+    form["juryList"] = juryList
+    await Helper.setFormData(studentId, form)
+  }
+
+
   function handleChange(evt) {
     const value = evt.target.value
     setState({
@@ -48,74 +97,131 @@ export default function JuryAppointmentByAdvisor() {
     })
   }
 
-  const [juryList, setJuryList] = React.useState([
-    {
-      name: 'Bekir Yörük',
-      institute: 'IZTECH',
-      department: 'Computer Engineering',
-    },
-    {
-      name: 'Bekir Yörük',
-      institute: 'IZTECH',
-      department: 'Computer Engineering',
-    },
-  ])
+
 
   function addJury() {
-    let jury = {
-      name: state.name,
-      institute: state.institute,
-      department: state.department,
+    if(!controlJuryData())
+    {
+      let jury = {
+        name: state.name,
+        institute: state.institute,
+        department: state.department,
+      }
+      setJuryList((juryList) => [...juryList, jury])
     }
-    setJuryList((juryList) => [...juryList, jury])
   }
 
-  let contentList = [
-    {
-      label: 'Name Surname',
-      content: 'furkan sahin',
+  function controlJuryData()
+  {
+    var hasInvalidInput = Helper.hasInvalidInput(state) 
+    var hasEmptyInput = Helper.hasEmptyInput(state);
+
+    return hasInvalidInput || hasEmptyInput
+  }
+  
+
+
+
+  function setContentListData(formData) {
+    let contentList = [
+      {
+        label: 'Name Surname',
+        content: formData.studentName + " " + formData.studentSurname
+      },
+      {
+        label: 'Student ID',
+        content: formData.studentId
+      },
+      {
+        label: 'Advisor Name',
+        content: formData.advisorName + " " + formData.advisorSurname
+      },
+      {
+        label: 'Program',
+        content: formData.program,
+      },
+      {
+        label: 'Thesis Name',
+        content: formData.thesisName
+      }
+    ]
+
+    setContentList(contentList);
+  }
+
+
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
     },
-    {
-      label: 'Program',
-      content: 'studentObject.email',
+    paper: {
+      position: 'absolute',
+      width: 1000,
+      height: 600,
+      backgroundColor: '#d4d4d4',
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
     },
-    {
-      label: 'Student ID',
-      content: 'studentObject.id',
-    },
-    {
-      label: 'Advisor',
-      content: 'studentObject.id',
-    },
-    {
-      label: 'Thesis Name',
-      content: 'studentObject.id',
-    },
-  ]
-  /*
-  let juryList = [
-    {
-      name: 'Bekir Yörük',
-      institute: 'IZTECH',
-      department: 'Computer Engineering',
-    },
-    {
-      name: 'Bekir Yörük',
-      institute: 'IZTECH',
-      department: 'Computer Engineering',
-    },
-    {
-      name: 'Bekir Yörük',
-      institute: 'IZTECH',
-      department: 'Computer Engineering',
-    },
-    {
-      name: 'Bekir Yörük',
-      institute: 'IZTECH',
-      department: 'Computer Engineering',
-    },
-  ]
-*/
+    control: (base, state) => ({
+      ...base,
+      border: '1px solid black',
+      boxShadow: 'none',
+      '&:hover': {
+        border: '1px solid black',
+      },
+    }),
+  }))
+
+  function getTextFieldView(defaultValue) {
+    return (
+      <TextField
+        className='table-textfield'
+        defaultValue={defaultValue}
+        disabled
+        InputProps={{
+          readOnly: true,
+          endAdornment: (
+            <InputAdornment position='start'>
+              <Lock />
+            </InputAdornment>
+          ),
+        }}
+        rowsMax={4}
+      />
+    )
+  }
+
+  function getJuryListView() {
+    return (
+      <div className='table-content'>
+        {juryList.map((jury, index) => (
+          <div key={index}>
+            {getTextFieldView(jury.name)}
+            {getTextFieldView(jury.institute)}
+            {getTextFieldView(jury.department)}
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  function getContentListView() {
+    return (
+
+      contentList.map((varib) => (
+        <div className='default-label' key={varib.content}>
+          <p>{varib.label}</p>
+          {getTextFieldView(varib.content)}
+        </div>
+      ))
+
+    )
+  }
+
   const classes = useStyles()
   const [modalStyle] = React.useState(getModalStyle)
 
@@ -134,75 +240,10 @@ export default function JuryAppointmentByAdvisor() {
         Thesis Defense Jury Appoinment(Preview)
       </h1>
       <div className='thesis-defense-preview-content'>
-        <div className='default-inputlar'>
-          {contentList.map((varib) => (
-            <div className='default-label' key={varib.content}>
-              <p>{varib.label}</p>
-              <TextField
-                className='default-textfield name'
-                defaultValue={varib.content}
-                disabled
-                InputProps={{
-                  readOnly: true,
-                  endAdornment: (
-                    <InputAdornment position='start'>
-                      <Lock />
-                    </InputAdornment>
-                  ),
-                }}
-                rowsMax={4}
-              />
-            </div>
-          ))}
-        </div>
-        <div className='table-content'>
-          {juryList.map((jury) => (
-            <div key={jury.name}>
-              <TextField
-                className='table-textfield'
-                defaultValue={jury.name}
-                disabled
-                InputProps={{
-                  readOnly: true,
-                  endAdornment: (
-                    <InputAdornment position='start'>
-                      <Lock />
-                    </InputAdornment>
-                  ),
-                }}
-                rowsMax={4}
-              />
-              <TextField
-                className='table-textfield'
-                defaultValue={jury.institute}
-                disabled
-                InputProps={{
-                  readOnly: true,
-                  endAdornment: (
-                    <InputAdornment position='start'>
-                      <Lock />
-                    </InputAdornment>
-                  ),
-                }}
-                rowsMax={4}
-              />
-              <TextField
-                className='table-textfield'
-                defaultValue={jury.department}
-                disabled
-                InputProps={{
-                  readOnly: true,
-                  endAdornment: (
-                    <InputAdornment position='start'>
-                      <Lock />
-                    </InputAdornment>
-                  ),
-                }}
-                rowsMax={4}
-              />
-            </div>
-          ))}
-        </div>
+        {Boolean(contentList) && <div className='default-inputlar'>
+          {getContentListView()}
+        </div>}
+        {getJuryListView()}
       </div>
       <Button
         onClick={() => {
@@ -217,28 +258,11 @@ export default function JuryAppointmentByAdvisor() {
     <div className='jury-appoinment-by-advisor'>
       <h1 className='thesis-defense-header'>Thesis Defense Jury Appoinment</h1>
       <div className='jury-appointment-content'>
-        <div className='default-inputlar'>
-          {contentList.map((varib) => (
-            <div className='default-label' key={varib.content}>
-              <p>{varib.label}</p>
-              <TextField
-                className='default-textfield name'
-                defaultValue={varib.content}
-                disabled
-                InputProps={{
-                  readOnly: true,
-                  endAdornment: (
-                    <InputAdornment position='start'>
-                      <Lock />
-                    </InputAdornment>
-                  ),
-                }}
-                rowsMax={4}
-              />
-            </div>
-          ))}
-        </div>
-        <div className='jury-adding'>
+        {Boolean(contentList) && <div className='default-inputlar'>
+          {getContentListView()}
+
+        </div>}
+        {formIsAccessible && <div className='jury-adding'>
           <div className='add-jury'>
             <form className={classes.root} noValidate autoComplete='off'>
               <ul className='add-jury-ul'>
@@ -274,79 +298,23 @@ export default function JuryAppointmentByAdvisor() {
 
             <Button onClick={addJury}>ADD</Button>
           </div>
-          {/*<div>
-            <p>{state.name}</p>
-            <p>{state.institute}</p>
-            <p>{state.department}</p>
-          </div>
-          */}
 
-          <div className='table'>
-            <div className='table-p'>
-              <p>Jury Name & Surname</p>
-              <p>Institute Name</p>
-              <p>Department</p>
-            </div>
-            <div className='table-content'>
-              {juryList.map((jury) => (
-                <div key={jury.name}>
-                  <TextField
-                    className='table-textfield'
-                    defaultValue={jury.name}
-                    disabled
-                    InputProps={{
-                      readOnly: true,
-                      endAdornment: (
-                        <InputAdornment position='start'>
-                          <Lock />
-                        </InputAdornment>
-                      ),
-                    }}
-                    rowsMax={4}
-                  />
-                  <TextField
-                    className='table-textfield'
-                    defaultValue={jury.institute}
-                    disabled
-                    InputProps={{
-                      readOnly: true,
-                      endAdornment: (
-                        <InputAdornment position='start'>
-                          <Lock />
-                        </InputAdornment>
-                      ),
-                    }}
-                    rowsMax={4}
-                  />
-                  <TextField
-                    className='table-textfield'
-                    defaultValue={jury.department}
-                    disabled
-                    InputProps={{
-                      readOnly: true,
-                      endAdornment: (
-                        <InputAdornment position='start'>
-                          <Lock />
-                        </InputAdornment>
-                      ),
-                    }}
-                    rowsMax={4}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        </div>}
+
       </div>
+
+      <div className='table'>
+            {getJuryListView()}
+            </div>
+            
       <div className='jury-appointment-buttons'>
-        <Button className='button '>
+        <Button className='button ' disabled={!formIsAccessible} onClick={() => submitFormData()}>
           <p style={{ fontWeight: 'Bold' }}>PUBLISH</p>
         </Button>
-        <Button className='button send-back'>
-          <p style={{ fontWeight: 'Bold' }}>SEND BACK</p>
-        </Button>
+
         <Button
           className='button preview'
+          disabled={formIsAccessible}
           onClick={() => {
             setOpenModal(true)
           }}

@@ -1,4 +1,4 @@
 const getHostAddressAGS = () => {
-    return 'http://ec2-18-223-0-35.us-east-2.compute.amazonaws.com:22';
+    return 'http://127.0.0.1:8001';
 }
 export default getHostAddressAGS;

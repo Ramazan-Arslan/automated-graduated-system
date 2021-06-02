@@ -22,7 +22,7 @@ const Routes = [
     key: 2,
     name: 'Thesis Advisor and Topic Appointment',
     path: '/thesisadvisorandtopicappointment',
-    usertype: 'student',
+    usertype: 'x',
     component: ThesisAdvisorAndTopicAppointment,
   },
   {
@@ -43,7 +43,7 @@ const Routes = [
   {
     key: 11,
     name: 'Jury Appointment',
-    usertype: 'advisor',
+    usertype: 'x',
     path: '/juryappointmentbyadvisor',
     component: JuryAppointmentByAdvisor,
   },
@@ -51,14 +51,14 @@ const Routes = [
   {
     key: 20,
     name: 'Thesis Advisor and Topic Appointment',
-    usertype: 'eabd',
+    usertype: 'x',
     path: '/thesisadvisorandtopicappointmentbyeabd',
     component: ThesisAdvisorAndTopicAppointmentByEabd,
   },
   {
     key: 21,
     name: 'Thesis Defense Exam Jury Report',
-    usertype: 'eabd',
+    usertype: 'x',
     path: '/thesisdefenseexamjuryreport',
     component: JuryReportByEABD,
   },
