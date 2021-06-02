@@ -62,16 +62,12 @@ export default function JuryAppointmentByAdvisor() {
   ])
 
   function addJury() {
-    let jury = [
-      {
-        name: state.name,
-        institute: state.institute,
-        department: state.department,
-      },
-    ]
-    setJuryList({
-      juryList: [...juryList, jury],
-    })
+    let jury = {
+      name: state.name,
+      institute: state.institute,
+      department: state.department,
+    }
+    setJuryList((juryList) => [...juryList, jury])
   }
 
   let contentList = [
