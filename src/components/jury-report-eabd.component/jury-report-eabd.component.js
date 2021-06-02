@@ -19,7 +19,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers'
-export default function JuryAppointmentFormByEABD() {
+export default function JuryReportFormByEABD() {
   const [modalIsOpen, setOpenModal] = useState(false)
   const [exam, setExam] = React.useState()
   const [examResult, setExamResult] = React.useState()
