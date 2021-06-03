@@ -8,10 +8,14 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import TextField from '@material-ui/core/TextField'
 import Helper from './thesis-advisor-and-topic-appointment.component-helper'
 
-
+var msgText = ""
 async function canFormBeFilled(studentId, formId) {
+  var isAdvisorSelected = await Helper.isAdvisorSelected(studentId)
+  if (!isAdvisorSelected) {
+    msgText += ("You must have an advisor to fill in the form.")
+  }
   var canFormBeFilled = await Helper.isFormAccessible(studentId, formId)
-  return canFormBeFilled;
+  return canFormBeFilled && isAdvisorSelected;
 }
 
 async function receiveFormData(studentId, formId) {
@@ -24,8 +28,8 @@ async function receiveFormData(studentId, formId) {
     studentSurname: studentObject.surname,
     studentId: studentObject.id,
     program: "Master",
-    advisorName: advisorObject.name,
-    advisorSurname: advisorObject.surname,
+    advisorName: advisorObject?.name,
+    advisorSurname: advisorObject?.surname,
     thesisName: formObject?.thesisName,
   }
 
@@ -44,9 +48,9 @@ export default function ThesisAdvisorAndTopicAppointment() {
   const [formIsAccessible, setFormIsAccessible] = useState(false)
 
   useEffect(async () => {
+    var isAccessible = await canFormBeFilled(userId, "Form_TD")
     var formData = await receiveFormData(userId, "Form_TD")
     setForm(formData)
-    var isAccessible = await canFormBeFilled(userId, "Form_TD")
     setFormIsAccessible(isAccessible)
     setThesisTopic(formData.thesisName)
     setContentListData(formData);
@@ -119,33 +123,39 @@ export default function ThesisAdvisorAndTopicAppointment() {
     }
   }
 
+  function getContentListView() {
+    return (
+      <div className='tnt-std-default-inputlar'>
+        {contentList.map((varib) => (
+          <div className='tnt-std-default-label' key={varib.content}>
+            <p>{varib.label}</p>
+            <TextField
+              className='tnt-std-default-textfield name'
+              defaultValue={varib.content}
+              disabled
+              InputProps={{
+                readOnly: true,
+                endAdornment: (
+                  <InputAdornment position='start'>
+                    <Lock />
+                  </InputAdornment>
+                ),
+              }}
+              rowsMax={4}
+            />
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   const modalView = (
     <div style={modalStyle} className={classes.paper}>
       <div>
         <p className='tnt-std-appointment-topic'>
           Thesis Advisor And Topic Appointment (Preview)
     </p>
-        {Boolean(contentList) && <div className='tnt-std-default-inputlar'>
-          {contentList.map((varib) => (
-            <div className='tnt-std-default-label' key={varib.content}>
-              <p>{varib.label}</p>
-              <TextField
-                className='tnt-std-default-textfield name'
-                defaultValue={varib.content}
-                disabled
-                InputProps={{
-                  readOnly: true,
-                  endAdornment: (
-                    <InputAdornment position='start'>
-                      <Lock />
-                    </InputAdornment>
-                  ),
-                }}
-                rowsMax={4}
-              />
-            </div>
-          ))}
-        </div>}
+        {Boolean(contentList) && getContentListView()}
         <div className='tnt-std-input'>
           <p className='tnt-std-input-header'>Thesis Topic</p>
           <TextField
@@ -174,27 +184,12 @@ export default function ThesisAdvisorAndTopicAppointment() {
       <p className='tnt-std-appointment-topic'>
         Thesis Advisor And Topic Appointment
       </p>
-      {Boolean(contentList) && <div className='tnt-std-default-inputlar'>
-        {contentList.map((varib) => (
-          <div className='tnt-std-default-label' key={varib.content}>
-            <p>{varib.label}</p>
-            <TextField
-              className='tnt-std-default-textfield name'
-              defaultValue={varib.content}
-              disabled
-              InputProps={{
-                readOnly: true,
-                endAdornment: (
-                  <InputAdornment position='start'>
-                    <Lock />
-                  </InputAdornment>
-                ),
-              }}
-              rowsMax={4}
-            />
-          </div>
-        ))}
-      </div>}
+
+      {Boolean(msgText) && <p className='tnt-std-appointment-topic'>
+        {msgText}
+      </p>}
+
+      {Boolean(contentList) && getContentListView()}
       <div className='tnt-std-input'>
         <p className='tnt-std-input-header'>Thesis Topic</p>
         <TextField
@@ -234,6 +229,7 @@ export default function ThesisAdvisorAndTopicAppointment() {
       >
         {modalView}
       </Modal>
+
     </div>
   )
 }

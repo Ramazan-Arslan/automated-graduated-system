@@ -8,32 +8,32 @@ import './forms.component.css'
 async function isValidStudentId(studentId, user) {
   const userController = new UserController()
   const obj = await userController.takeUserInfo(studentId, "student")
+  var returnedValue = false;
+
   if (Boolean(obj.name)) {
     if (user.type === "advisor") {
       const advisorIdOfStudent = obj?.advisor?.advisorId;
       if (advisorIdOfStudent === user.id) {
-        return true
+        returnedValue = true
       }
       else {
         alert("Advisors only can reach his/her students' forms.")
-        return false
       }
     }
-    else
-    {
-      return true
+    else {
+      returnedValue = true
     }
+  } 
 
-  } else {
-    return false
-  }
+  return returnedValue
 }
+
 
 
 export default function Form() {
   var userType = localStorage.getItem('type')
   var userId = localStorage.getItem('id')
-  const [user, setUser] = useState({id : "", type: ""})
+  const [user, setUser] = useState({ id: "", type: "" })
   const [studentId, setStudentId] = useState("")
   const [listIsAccessible, setListIsAccessible] = useState(false)
   const [contentList, setContentList] = useState([])
@@ -42,7 +42,7 @@ export default function Form() {
     if (userType === "student") {
       setStudentId(userId)
     }
-    setUser({id:userId, type:userType})
+    setUser({ id: userId, type: userType })
     setContentListData();
   }, [])
 
@@ -57,14 +57,14 @@ export default function Form() {
           path: '/thesisadvisorandtopicappointmentbyeabd'
         },
         {
+          label: 'Thesis Defense Jury Appointment Form(Form TJ)',
+          formId: 'Form_TJ',
+          path: '/juryappointmentbyeabd'
+        },
+        {
           label: 'Thesis Defense Exam Jury Report Form(Form TS)',
           formId: 'Form_TS',
           path: '/thesisdefenseexamjuryreport'
-        },
-        {
-          label: 'Thesis Defense Jury Appointment Form(Form TJ)',
-          formId: 'Form_TJ',
-          path: '/'
         },
 
       ]
@@ -108,13 +108,19 @@ export default function Form() {
   }
 
   async function controlStudentId() {
-    var isValidId = await isValidStudentId(studentId,user);
-    if (!isValidId) {
-      alert("Invalid student id")
+    if (Boolean(studentId)) {
+      var isValidId = await isValidStudentId(studentId, user);
+      if (!isValidId) {
+        alert("Student ID is invalid.")
+      }
+      else {
+        setListIsAccessible(true)
+      }
     }
     else {
-      setListIsAccessible(true)
+      alert("Student ID cannot be empty.")
     }
+
   }
 
 
