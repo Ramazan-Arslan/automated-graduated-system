@@ -49,9 +49,9 @@ export default function ThesisAdvisorAndTopicAppointment() {
 
   useEffect(async () => {
     var isAccessible = await canFormBeFilled(userId, "Form_TD")
-    var formData = await receiveFormData(userId, "Form_TD")
-    setForm(formData)
     setFormIsAccessible(isAccessible)
+    var formData = await receiveFormData(userId, "Form_TD")
+    setForm(formData)   
     setThesisTopic(formData.thesisName)
     setContentListData(formData);
   }, [])

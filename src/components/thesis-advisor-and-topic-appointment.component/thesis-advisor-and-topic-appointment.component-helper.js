@@ -76,8 +76,6 @@ const helpers = {
 
     isFormAccessible: async function (studentId, formId) {
         const formController = new FormController()
-        const userController = new UserController()
-        var advisorStatus = await userController.takeSpecificUserInfo("/user/student/advisor/status");
         var formStatus = await formController.takeFormStatus(studentId, formId);
         return formStatus;
     }
