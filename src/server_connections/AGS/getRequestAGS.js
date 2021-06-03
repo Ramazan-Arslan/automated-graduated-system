@@ -1,18 +1,21 @@
-import getHostAddress from './getHostAddressOBS';
+import getHostAddress from './getHostAddressAGS';
 import axios from 'axios';
 
-const postRequestOBS = async (path, json) => {
+const getRequestAGS = async (path) => {
 
    var address = getHostAddress();
    var returnedData = null;
+   console.log(address + path)
 
 
-   await axios.post(address + path, json)
+   await axios.get(address + path)
       .then((response) => {
          returnedData = response.data;
       });
    return returnedData;
+
+
 };
 
 
-export default postRequestOBS;
+export default getRequestAGS;
