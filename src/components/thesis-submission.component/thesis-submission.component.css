@@ -40,6 +40,15 @@
 .MuiDropzoneArea-root {
   min-height: 200px !important;
   width: 300px !important;
-  padding: 10px 30px !important;
+  padding: 10px 20px !important;
   margin-right: 0;
+}
+.MuiDropzonePreviewList-image {
+height: 50px !important;
+}
+.MuiGrid-spacing-xs-8 > .MuiGrid-item {
+  padding: 32px;
+  display: flex;
+  
+
 }

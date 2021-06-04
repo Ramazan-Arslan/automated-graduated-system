@@ -178,6 +178,7 @@ export default function Form() {
   return (
     <div className='forms'>
       <h1>Forms</h1>
+      <div className="search-student">
       {!(userType === "student") && <div className='tnt-std-input'>
         <p className='tnt-std-input-header'>Student Id</p>
         <TextField
@@ -188,15 +189,18 @@ export default function Form() {
           onChange={(event) => setStudentId(event.target.value)}
         />
 
-        <Button
-          onClick={() => {
-            controlStudentId()
-          }}
-        >
-          <p style={{ fontWeight: 'Bold' }}>Search</p>
-        </Button>
-      </div>}
 
+      </div>}
+      { (userType !== "student")  &&
+      <Button variant="contained" color="primary" className="search-button"
+      onClick={() => {
+        controlStudentId()
+      }}
+    >
+      <p style={{ fontWeight: 'Bold' }}>Search</p>
+    </Button>
+    }
+        </div>
       {Boolean(contentList) && listIsAccessible && <div className='tnt-std-default-inputlar'>
         {contentList.map((varib) => (
           <div className='tnt-std-default-label' key={varib.path}
