@@ -32,8 +32,8 @@ const helpers = {
 
     isFormTJAccepted: async function (studentId) {
         const userController = new UserController()
-        var formTDStatus = await userController.takeSpecificUserInfo("/user/student/" + studentId + "/forms/Form_TJ/status");
-        return (formTDStatus === "Accepted");
+        var formTJStatus = await userController.takeSpecificUserInfo("/user/student/" + studentId + "/forms/Form_TJ/status");
+        return (formTJStatus === "Accepted");
     },
 
 

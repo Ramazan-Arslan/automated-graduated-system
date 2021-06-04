@@ -22,7 +22,7 @@ var msgText = ""
 
 async function canFormBeFilled(studentId, formId) {
   var isFormTJAccepted = await Helper.isFormTJAccepted(studentId)
-
+  console.log(isFormTJAccepted)
   if (!isFormTJAccepted) {
     msgText += "Form TJ is not accepted for : " + studentId + ". So you can not fill in this form."
   }
@@ -331,7 +331,7 @@ export default function JuryReportFormByEABD() {
 
   return (
     <div className='jury-report-by-eabd'>
-      {!Boolean(msgText) && <div>
+      {Boolean(msgText) && <div>
           <p className='jury-report-topic'>Thesis Defense Exam Jury Report</p>
           <p className='jury-report-topic'>
             {"Form TJ is not submitted for : " + studentId + ". So you cannot fill in this form"}
@@ -339,7 +339,7 @@ export default function JuryReportFormByEABD() {
         </div>
       }
 
-      {Boolean(msgText) && <div>
+      {!Boolean(msgText) && <div>
         <p className='jury-report-topic'>Thesis Defense Exam Jury Report</p>
         {Boolean(contentList) && getContentListView()}
         <div className='exam-situation-date'>
