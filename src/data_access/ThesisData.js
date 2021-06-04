@@ -48,7 +48,7 @@ export default class FormData extends React.Component {
                 result.items.forEach(async (pdf) => {
                     await db.app.storage().ref().child(pdf.fullPath).getDownloadURL().then((url) => {
                         count++;
-                        file = new File([url], pdf.name);
+                        file = [new File([url], pdf.name),url]
                     })
 
                     if (count === (await storageRef.list()).items.length) {
