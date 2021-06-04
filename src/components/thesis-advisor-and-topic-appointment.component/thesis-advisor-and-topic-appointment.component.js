@@ -144,7 +144,19 @@ export default function ThesisAdvisorAndTopicAppointment() {
               rowsMax={4}
             />
           </div>
+          
         ))}
+        <div className='tnt-std-input'>
+        <p className='tnt-std-input-header'>Thesis Topic</p>
+        <TextField
+          className='tnt-std-default-textfield name'
+          id='standard-basic'
+          disabled={!Boolean(formIsAccessible)}
+          label=''
+          value={thesisTopic}
+          onChange={(event) => setThesisTopic(event.target.value)}
+        />
+      </div>
       </div>
     )
   }
@@ -190,17 +202,7 @@ export default function ThesisAdvisorAndTopicAppointment() {
       </p>}
 
       {Boolean(contentList) && getContentListView()}
-      <div className='tnt-std-input'>
-        <p className='tnt-std-input-header'>Thesis Topic</p>
-        <TextField
-          className='tnt-std-default-textfield name'
-          id='standard-basic'
-          disabled={!Boolean(formIsAccessible)}
-          label=''
-          value={thesisTopic}
-          onChange={(event) => setThesisTopic(event.target.value)}
-        />
-      </div>
+      
       <div className='tnt-std-appointment-buttons'>
         <Button
           disabled={formIsAccessible}

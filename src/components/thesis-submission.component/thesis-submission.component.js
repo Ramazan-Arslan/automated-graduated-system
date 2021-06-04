@@ -95,7 +95,7 @@ export default function ThesisSubmission() {
     paper: {
       position: 'absolute',
       width: 1150,
-      height: 600,
+      height: 'auto',
       backgroundColor: '#d4d4d4',
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -122,6 +122,7 @@ export default function ThesisSubmission() {
       transform: `translate(-${top}%, -${left}%)`,
     }
   }
+ 
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
