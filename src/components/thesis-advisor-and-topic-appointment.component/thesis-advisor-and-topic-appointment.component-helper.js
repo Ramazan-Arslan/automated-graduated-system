@@ -1,5 +1,5 @@
-
 import FormController from '../../controllers/FormController'
+import ThesisController from '../../controllers/ThesisController'
 import UserController from '../../controllers/UserController'
 
 const helpers = {
@@ -19,17 +19,15 @@ const helpers = {
         var url = 'user/student/' + studentId + '/advisor';
         var advisorObject = await userController.takeSpecificUserInfo(url)
 
-        if(Boolean(advisorObject) && advisorObject.status === "Accepted")
-        {
+        if (Boolean(advisorObject) && advisorObject.status === "Accepted") {
             var advisorUrl = 'user/advisor/' + advisorObject.advisorId;
             var advisorInfo = await userController.takeSpecificUserInfo(advisorUrl)
 
             return advisorInfo;
         }
-        else
-        {
+        else {
             return null;
-        } 
+        }
     },
 
     getFormData: async function (studentId, formId) {
@@ -41,45 +39,45 @@ const helpers = {
 
     setFormData: async function (studentId, form) {
 
-        if(Boolean(form.thesisName))
-        {   
-            if(this.validateThesisName(form.thesisName))
-            {
+        if (Boolean(form.thesisName)) {
+            if (this.validateThesisName(form.thesisName)) {
                 const formController = new FormController()
-
+                const thesisController = new ThesisController()
                 const isSet = await formController.coordinateFormData(studentId, form)
-                if(isSet)
-                {
+                await thesisController.coordinateThesisInfo(studentId,{name : form.thesisName})
+                if (isSet) {
                     alert("Thesis Topic selected succesfully")
                     window.location.reload(true);
                 }
-                
+
             }
-            else
-            {
+            else {
                 alert("Thesis name contains invalid characters")
             }
-           
+
         }
-        else
-        {
+        else {
             alert("Thesis Name cannot be empty")
         }
-      
+
     },
 
-    validateThesisName(thesisName)
-    {
-        
-        if(thesisName.match("^[a-zA-Z0-9 ]*$"))
-        {
+    validateThesisName(thesisName) {
+
+        if (thesisName.match("^[a-zA-Z0-9 ]*$")) {
             return true
         }
         return false
     },
 
+    isAdvisorSelected: async function (studentId) {
+        const userController = new UserController()
+        var advisorStatus = await userController.takeSpecificUserInfo("/user/student/" + studentId + "/advisor/status");
+        return (advisorStatus === "Accepted");
+    },
+
     isFormAccessible: async function (studentId, formId) {
-        const formController = new FormController()      
+        const formController = new FormController()
         var formStatus = await formController.takeFormStatus(studentId, formId);
         return formStatus;
     }

@@ -1,36 +1,94 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './thesis-submission.component.css'
 import MyTextField from '../textfield.component/mytextfield.component'
 import { Button } from '@material-ui/core'
-import { DropzoneArea } from 'material-ui-dropzone'
+import { DropzoneArea, DropzoneDialog } from 'material-ui-dropzone'
 import Modal from '@material-ui/core/Modal'
 import { makeStyles } from '@material-ui/core/styles'
+import Helper from './thesis-submission-helper.component'
+
+
+async function receiveThesisData(studentId) {
+  var thesis = await Helper.getThesisData(studentId);
+  return thesis
+}
+
+async function canThesisReachable(studentId) {
+  var thesisStatus = await Helper.getThesisStatus(studentId);
+  if (Boolean(thesisStatus)) {
+    return true
+  }
+  return false
+}
+
+
+async function receiveFormData(studentId, formId) {
+  var formObject = await Helper.getFormData(studentId, formId)
+  return formObject
+}
+
+
 
 export default function ThesisSubmission() {
-  const [modalIsOpen, setOpenModal] = useState(false)
 
-  let contentList = [
-    {
-      label: 'Name Surname',
-      content: 'studentObject.name' + ' ' + 'studentObject.surname',
-    },
-    {
-      label: 'Email',
-      content: 'studentObject.email',
-    },
-    {
-      label: 'Student ID',
-      content: 'studentObject.id',
-    },
-    {
-      label: 'Thesis Topic',
-      content: 'studentObject.id',
-    },
-    {
-      label: 'Advisor Name',
-      content: 'studentObject.id',
-    },
-  ]
+  var userId = localStorage.getItem('id')
+  var userType = localStorage.getItem('type')
+  const [user, setUser] = useState({ id: "", type: "" })
+  const [student, setStudent] = useState({ id: "" })
+  const [thesis, setThesis] = useState(null)
+  const [contentList, setContentList] = useState(null)
+  const [isThesisExist, setThesisExist] = useState(false)
+  const [modalIsOpen, setOpenModal] = useState(false)
+  const [dropzoneOpen, setDropzoneOpen] = useState(false)
+
+  useEffect(async () => {
+    setUser({ id: userId, type: userType })
+    setStudent({ id: userId })
+    var formData = await receiveFormData(userId, "Form_TS")
+    var thesisData = await receiveThesisData(userId)
+    setThesis([thesisData])
+    var thesisStatus = await canThesisReachable(userId)
+    setThesisExist(thesisStatus)
+    if (Boolean(formData)) {
+      setContentListData(formData);
+    }
+
+  }, [])
+
+
+  function setContentListData(formData) {
+
+
+    let contentList = [
+      {
+        label: 'Name Surname',
+        content: formData.studentName + " " + formData.studentSurname
+      },
+      {
+        label: 'Student ID',
+        content: formData.studentId
+      },
+      {
+        label: 'Advisor Name',
+        content: formData.advisorName + " " + formData.advisorSurname
+      },
+      {
+        label: 'Program',
+        content: formData.program,
+      },
+      {
+        label: 'Thesis Topic',
+        content: formData.thesisName
+      },
+    ]
+
+    setContentList(contentList);
+  }
+
+  async function uploadThesisButton() {
+    await Helper.setThesisFile(student.id, thesis[0])
+  }
+
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
@@ -67,10 +125,16 @@ export default function ThesisSubmission() {
     <div style={modalStyle} className={classes.paper}>
       <div>
         <p className='thesis-submission-topic'>Thesis Submission (Preview)</p>
-        <MyTextField myprops={contentList} />
+        {Boolean(contentList) && <MyTextField myprops={contentList} />}
         <div className='input-file'>
           <p className='thesis-submission-upload'>Thesis Submission</p>
-          <DropzoneArea />
+          <DropzoneArea
+            initialFiles={thesis}
+            onDelete={() => null}
+            showPreviewsInDropzone
+            showFileNames
+            maxFileSize={5000000}
+          />
         </div>
         <div className='thesis-submission-buttons'></div>
       </div>
@@ -86,14 +150,24 @@ export default function ThesisSubmission() {
   return (
     <div className='thesis-submission'>
       <p className='thesis-submission-topic'>Thesis Submission</p>
-      <MyTextField myprops={contentList} />
-      <div className='input-file'>
+      {Boolean(contentList) && <MyTextField myprops={contentList} />}
+      {!isThesisExist && <div className='input-file'>
         <p className='thesis-submission-upload'>Thesis Submission</p>
-        <DropzoneArea />
-      </div>
+        <DropzoneArea
+          onChange={(file) => setThesis(file)}
+          acceptedFiles={['application/pdf']}
+          filesLimit={1}
+          initialFiles={thesis}
+          showPreviewsInDropzone
+          showFileNames
+          maxFileSize={5000000}
+        />
+
+      </div>}
       <div className='thesis-submission-buttons'>
         <Button
           className='button preview'
+          disabled={!isThesisExist}
           onClick={() => {
             setOpenModal(true)
           }}
@@ -101,7 +175,10 @@ export default function ThesisSubmission() {
           <p style={{ fontWeight: 'Bold' }}>Preview</p>
         </Button>
 
-        <Button className='button save'>
+        <Button
+          className='button save'
+          disabled={isThesisExist}
+          onClick={uploadThesisButton}>
           <p style={{ fontWeight: 'Bold' }}>Save Changes</p>
         </Button>
       </div>

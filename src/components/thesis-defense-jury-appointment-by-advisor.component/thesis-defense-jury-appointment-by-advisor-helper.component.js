@@ -1,5 +1,3 @@
-
-import { faSortNumericDown } from '@fortawesome/free-solid-svg-icons'
 import FormController from '../../controllers/FormController'
 import UserController from '../../controllers/UserController'
 
@@ -59,7 +57,7 @@ const helpers = {
 
         }
         else {
-            alert("Thesis Name cannot be empty")
+            alert("Jury list cannot be empty")
         }
 
     },
@@ -69,6 +67,13 @@ const helpers = {
         var formStatus = await formController.takeFormStatus(studentId, formId);
         return formStatus;
     },
+
+    isFormTDAccepted: async function (studentId) {
+        const userController = new UserController()
+        var formTDStatus = await userController.takeSpecificUserInfo("/user/student/" + studentId + "/forms/Form_TD/status");
+        return (formTDStatus === "Accepted");
+    },
+
 
     hasEmptyInput: function (state) {
         var emptyInputMessage = "";

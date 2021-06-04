@@ -1,16 +1,19 @@
-
 import FormController from '../../controllers/FormController'
 
 const helpers = {
 
     getFormData: async function (studentId, formId) {
         const formController = new FormController()
-        console.log(studentId)
+
         var formObject = await formController.takeFormData(studentId, formId)
-        if (!Boolean(formObject)) {
-            return null
-        }
         return formObject
+    },
+
+
+    isFormAccessible: async function (studentId, formId) {
+        const formController = new FormController()
+        var formStatus = await formController.takeFormStatus(studentId, formId);
+        return formStatus;
     },
 
     setFormStatus: async function (studentId, formId, status) {
@@ -20,12 +23,11 @@ const helpers = {
 
         if (isSet) {
 
-            alert("Thesis Advisor and Topic Appointmet " + status.toLowerCase())
+            alert("Thesis Defense Jury Appointment Form " + status.toLowerCase())
             window.location.reload(true);
         }
 
     },
-
 
 };
 

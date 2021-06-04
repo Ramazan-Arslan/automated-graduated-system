@@ -1,0 +1,66 @@
+.jury-appoinment-by-eabd {
+  top: 13%;
+  left: 22%;
+  position: fixed;
+  width: 78%;
+  height: 90%;
+  color: black;
+  background: #d4d4d4;
+}
+.default-inputlar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+  justify-content: center;
+}
+.default-label {
+  width: 250px;
+  background: #e5d8d9;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  text-align: start;
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+.default-label p {
+  font-weight: 500;
+  color: 333;
+  padding: 5px;
+  margin: 0;
+}
+
+.jury-appointment-content {
+  display: flex;
+  flex-direction: column;
+}
+.table-p {
+  display: flex;
+  justify-content: space-around;
+}
+.table-textfield {
+  width: 200px;
+  font-size: 10px;
+  background-color: white;
+  border-radius: 4px;
+  font-style: italic;
+}
+
+.jury-appointment-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.thesis-defense-header {
+  text-align: start;
+  margin-left: 20px;
+}
+
+.table-content {
+  margin-top: 20px;
+}
