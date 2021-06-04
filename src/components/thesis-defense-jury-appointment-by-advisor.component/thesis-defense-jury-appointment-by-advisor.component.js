@@ -8,9 +8,16 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import Modal from '@material-ui/core/Modal'
 import Helper from './thesis-defense-jury-appointment-by-advisor-helper.component'
 
+var msgText = ""
+
 async function canFormBeFilled(studentId, formId) {
+  var isFormTDAccepted = await Helper.isFormTDAccepted(studentId)
+  if(!isFormTDAccepted)
+  {
+    msgText += "Form TD is not accepted for : " + studentId + ". So you can not fill in this form."
+  }
   var canFormBeFilled = await Helper.isFormAccessible(studentId, formId)
-  return canFormBeFilled;
+  return isFormTDAccepted && canFormBeFilled;
 }
 
 async function receiveFormData(studentId, formId) {
@@ -41,7 +48,7 @@ export default function JuryAppointmentByAdvisor() {
   var userType = localStorage.getItem('type')
   var formStudentId = localStorage.getItem('FormStudentId')
   const [user, setUser] = useState({ id: "", type: "" })
-  const [studentId, setSutdentId] = useState("")
+  const [studentId, setStudentId] = useState("")
   const [form, setForm] = useState(null)
   const [contentList, setContentList] = useState(null)
   const [formIsAccessible, setFormIsAccessible] = useState(false)
@@ -55,7 +62,7 @@ export default function JuryAppointmentByAdvisor() {
 
   useEffect(async () => {
     setUser({ id: userId, type: userType })
-    setSutdentId(formStudentId)
+    setStudentId(formStudentId)
     var formData = await receiveFormData(formStudentId, "Form_TJ")
     setForm(formData)
     var isAccessible = await canFormBeFilled(formStudentId, "Form_TJ")
@@ -257,12 +264,15 @@ export default function JuryAppointmentByAdvisor() {
   return (
     <div className='jury-appoinment-by-advisor'>
       <h1 className='thesis-defense-header'>Thesis Defense Jury Appoinment</h1>
+      {Boolean(msgText) && <p className='tnt-std-appointment-topic'>
+        {msgText}
+      </p>}
       <div className='jury-appointment-content'>
-        {Boolean(contentList) && <div className='default-inputlar'>
+        {Boolean(contentList) && !Boolean(msgText) && <div className='default-inputlar'>
           {getContentListView()}
 
         </div>}
-        {formIsAccessible && <div className='jury-adding'>
+        {formIsAccessible && !Boolean(msgText) && <div className='jury-adding'>
           <div className='add-jury'>
             <form className={classes.root} noValidate autoComplete='off'>
               <ul className='add-jury-ul'>
@@ -302,12 +312,12 @@ export default function JuryAppointmentByAdvisor() {
         </div>}
 
       </div>
-
+   
       <div className='table'>
             {getJuryListView()}
             </div>
-            
-      <div className='jury-appointment-buttons'>
+           
+      {!Boolean(msgText) && <div className='jury-appointment-buttons'>
         <Button className='button ' disabled={!formIsAccessible} onClick={() => submitFormData()}>
           <p style={{ fontWeight: 'Bold' }}>PUBLISH</p>
         </Button>
@@ -321,7 +331,7 @@ export default function JuryAppointmentByAdvisor() {
         >
           <p style={{ fontWeight: 'Bold' }}>PREVIEW</p>
         </Button>
-      </div>
+      </div>}
       <Modal
         open={modalIsOpen}
         onClose={!modalIsOpen}

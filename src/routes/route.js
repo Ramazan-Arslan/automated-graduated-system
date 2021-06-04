@@ -9,6 +9,7 @@ import Settings from '../components/settings.component/settings.component.js'
 import Homepage from '../components/homepage.component/homepage.component.js'
 import Notification from '../components/notification.component/notification.component'
 import JuryAppointmentByAdvisor from '../components/thesis-defense-jury-appointment-by-advisor.component/thesis-defense-jury-appointment-by-advisor.component'
+import JuryAppointmentByEabd from '../components/thesis-defense-jury-appointment-by-eabd.component/thesis-defense-jury-appointment-by-eabd.component'
 import JuryReportByEABD from '../components/jury-report-eabd.component/jury-report-eabd.component'
 const Routes = [
   {
@@ -42,7 +43,7 @@ const Routes = [
   },
   {
     key: 11,
-    name: 'Jury Appointment',
+    name: 'Jury Appointment By Advisor',
     usertype: 'x',
     path: '/juryappointmentbyadvisor',
     component: JuryAppointmentByAdvisor,
@@ -61,6 +62,13 @@ const Routes = [
     usertype: 'x',
     path: '/thesisdefenseexamjuryreport',
     component: JuryReportByEABD,
+  },
+  {
+    key: 22,
+    name: 'Jury Appointment by EABD',
+    usertype: 'x',
+    path: '/juryappointmentbyeabd',
+    component: JuryAppointmentByEabd,
   },
   {
     key: 40,
