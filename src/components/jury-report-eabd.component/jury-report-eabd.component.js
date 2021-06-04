@@ -22,7 +22,7 @@ var msgText = ""
 
 async function canFormBeFilled(studentId, formId) {
   var isFormTJAccepted = await Helper.isFormTJAccepted(studentId)
-  console.log(isFormTJAccepted)
+
   if (!isFormTJAccepted) {
     msgText += "Form TJ is not accepted for : " + studentId + ". So you can not fill in this form."
   }
@@ -182,6 +182,7 @@ export default function JuryReportFormByEABD() {
     return (
       <FormControlLabel
         value={value}
+        disabled={Boolean(form)}
         control={<Radio />}
         label={value}
       />
@@ -358,6 +359,7 @@ export default function JuryReportFormByEABD() {
                   format='MM/dd/yyyy'
                   margin='normal'
                   id='date-picker-inline'
+                  disabled={Boolean(form)}
                   label='Select Date'
                   value={selectedDate}
                   onChange={handleDateChange}

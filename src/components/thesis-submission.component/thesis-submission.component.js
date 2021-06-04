@@ -40,13 +40,15 @@ export default function ThesisSubmission() {
   const [isThesisExist, setThesisExist] = useState(false)
   const [modalIsOpen, setOpenModal] = useState(false)
   const [dropzoneOpen, setDropzoneOpen] = useState(false)
+  const [thesisUrl, setThesisUrl] = useState("")
 
   useEffect(async () => {
     setUser({ id: userId, type: userType })
     setStudent({ id: userId })
     var formData = await receiveFormData(userId, "Form_TS")
     var thesisData = await receiveThesisData(userId)
-    setThesis([thesisData])
+    setThesis([thesisData[0]])
+    setThesisUrl(thesisData[1])
     var thesisStatus = await canThesisReachable(userId)
     setThesisExist(thesisStatus)
     if (Boolean(formData)) {
@@ -58,7 +60,7 @@ export default function ThesisSubmission() {
 
   function setContentListData(formData) {
 
-
+    console.log(thesis)
     let contentList = [
       {
         label: 'Name Surname',
@@ -127,18 +129,18 @@ export default function ThesisSubmission() {
       <div>
         <p className='thesis-submission-topic'>Thesis Submission (Preview)</p>
         {Boolean(contentList) && <MyTextField myprops={contentList} />}
-        <div className='input-file'>
+        {Boolean(thesis) && <div className='input-file'>
           <p className='thesis-submission-upload'>Thesis Submission</p>
-          <DropzoneArea
-            initialFiles={thesis}
-            onDelete={() => null}
-            showPreviewsInDropzone
-            showFileNames
-            dropzoneText={false}
-            maxFileSize={5000000}
-           
-          />
-        </div>
+          <Button
+            className='button preview'
+            disabled={!Boolean(thesisUrl)}
+            onClick={() => {
+              window.location.href = thesisUrl
+            }}
+          >
+            <p style={{ fontWeight: 'Bold' }}>{"Download file :"+ thesis[0].name} </p>
+          </Button>
+        </div>}
         <div className='thesis-submission-buttons'></div>
       </div>
       <Button
