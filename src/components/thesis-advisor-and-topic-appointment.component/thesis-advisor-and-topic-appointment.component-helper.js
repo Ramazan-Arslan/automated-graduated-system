@@ -1,4 +1,5 @@
 import FormController from '../../controllers/FormController'
+import ThesisController from '../../controllers/ThesisController'
 import UserController from '../../controllers/UserController'
 
 const helpers = {
@@ -41,8 +42,9 @@ const helpers = {
         if (Boolean(form.thesisName)) {
             if (this.validateThesisName(form.thesisName)) {
                 const formController = new FormController()
-
+                const thesisController = new ThesisController()
                 const isSet = await formController.coordinateFormData(studentId, form)
+                await thesisController.coordinateThesisInfo(studentId,{name : form.thesisName})
                 if (isSet) {
                     alert("Thesis Topic selected succesfully")
                     window.location.reload(true);

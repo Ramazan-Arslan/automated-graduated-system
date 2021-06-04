@@ -20,7 +20,7 @@ const helpers = {
 
         if (isSet) {
 
-            alert("Thesis Advisor and Topic Appointmet" + status.toLowerCase())
+            alert("Thesis Advisor and Topic Appointmet " + status.toLowerCase())
             window.location.reload(true);
         }
 

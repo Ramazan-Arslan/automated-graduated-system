@@ -22,9 +22,11 @@ var msgText = ""
 
 async function canFormBeFilled(studentId, formId) {
   var isFormTJAccepted = await Helper.isFormTJAccepted(studentId)
+
   if (!isFormTJAccepted) {
     msgText += "Form TJ is not accepted for : " + studentId + ". So you can not fill in this form."
   }
+  console.log(msgText)
   var canFormBeFilled = await Helper.isFormAccessible(studentId, formId)
   return isFormTJAccepted && canFormBeFilled;
 }
@@ -56,12 +58,13 @@ export default function JuryReportFormByEABD() {
   const [juryList, setJuryList] = useState([])
   const [examType, setExamType] = useState(null)
   const [examResult, setExamResult] = useState(null)
-  const [selectedDate, setSelectedDate] = useState( null)
+  const [selectedDate, setSelectedDate] = useState(null)
 
   useEffect(async () => {
     setUser({ id: userId, type: userType })
     setStudentId(formStudentId)
     var isAccessible = await canFormBeFilled(formStudentId, "Form_TS")
+
     setFormIsAccessible(isAccessible)
     var formData = await receiveFormData(formStudentId, "Form_TS")
     setForm(formData)
@@ -225,7 +228,7 @@ export default function JuryReportFormByEABD() {
               {getExamTypeCheckboxesView()}
             </FormControl>
           </div>
-       
+
           <div>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Grid container justify='space-around'>
@@ -328,11 +331,15 @@ export default function JuryReportFormByEABD() {
 
   return (
     <div className='jury-report-by-eabd'>
-      {Boolean(msgText) && <p className='tnt-std-appointment-topic'>
-        {msgText}
-      </p>}
-
       {!Boolean(msgText) && <div>
+          <p className='jury-report-topic'>Thesis Defense Exam Jury Report</p>
+          <p className='jury-report-topic'>
+            {"Form TJ is not submitted for : " + studentId + ". So you cannot fill in this form"}
+          </p>
+        </div>
+      }
+
+      {Boolean(msgText) && <div>
         <p className='jury-report-topic'>Thesis Defense Exam Jury Report</p>
         {Boolean(contentList) && getContentListView()}
         <div className='exam-situation-date'>
@@ -385,7 +392,7 @@ export default function JuryReportFormByEABD() {
             <p style={{ fontWeight: 'Bold' }}>Preview</p>
           </Button>
 
-          <Button className='button save'  disabled={!formIsAccessible} onClick={() => submitFormData()}>
+          <Button className='button save' disabled={!formIsAccessible} onClick={() => submitFormData()}>
             <p style={{ fontWeight: 'Bold' }}>Publish</p>
           </Button>
         </div>

@@ -23,7 +23,7 @@ async function isValidStudentId(studentId, user) {
     else {
       returnedValue = true
     }
-  } 
+  }
 
   return returnedValue
 }
@@ -48,9 +48,41 @@ export default function Form() {
 
 
   function setContentListData() {
-    let contentList = []
+    let contentList = [
+      {
+        label: 'Registration Form for Courses from Other Institutions (Form DA)',
+        formId: 'Form_DA',
+        path: null
+      },
+      {
+        label: "Education Evaluation Form for Master's Students Defending their Thesis (Form TJ-a)",
+        formId: 'Form_TJ-a',
+        path: null
+      },
+      {
+        label: 'Thesis Defense Exam Form for Jury Attending Online (Form TS-b)',
+        formId: 'Form_TS-b',
+        path: null
+      },
+      {
+        label: "Defense Exam Notification Form for Students Who Have Revised Their Thesis (Form TJ-D)",
+        formId: 'Form_TJ-D',
+        path: null
+      },
+      {
+        label: 'Thesis Final Copy Submission Deadline Extension Form (Form ES)',
+        formId: 'Form_ES',
+        path: null
+      },
+      {
+        label: 'Thesis Final Copy Submission Form (Form TT)',
+        formId: 'Form_TT',
+        path: null
+      },
+
+    ]
     if (userType === "officer") {
-      contentList = [
+      contentList.push(
         {
           label: 'Thesis Advisor and Topic Appointment Form (Form TD)',
           formId: 'Form_TD',
@@ -62,34 +94,53 @@ export default function Form() {
           path: '/juryappointmentbyeabd'
         },
         {
-          label: 'Thesis Defense Exam Jury Report Form(Form TS)',
+          label: 'Thesis Defense Exam Jury Report Form (Form TS)',
           formId: 'Form_TS',
           path: '/thesisdefenseexamjuryreport'
         },
-
-      ]
+      )
     }
 
     else if (userType === "advisor") {
 
-      contentList = [
+      contentList.push(
+        {
+          label: 'Thesis Advisor and Topic Appointment Form (Form TD)',
+          formId: 'Form_TD',
+          path: null
+        },
         {
           label: 'Thesis Defense Jury Appointment Form(Form TJ)',
           formId: 'Form_TJ',
           path: '/juryappointmentbyadvisor'
         },
-      ]
-
+        {
+          label: 'Thesis Defense Exam Jury Report Form (Form TS)',
+          formId: 'Form_TS',
+          path: null
+        },
+      )
     }
     else {
 
-      contentList = [
+      contentList.push(
+        {
+          label: 'Thesis Defense Jury Appointment Form(Form TJ)',
+          formId: 'Form_TJ',
+          path: null
+        },
+        {
+          label: 'Thesis Defense Exam Jury Report Form (Form TS)',
+          formId: 'Form_TS',
+          path: null
+        },
         {
           label: 'Thesis Advisor and Topic Appointment Form (Form TD)',
           formId: 'Form_TD',
           path: '/thesisadvisorandtopicappointment'
         },
-      ]
+      )
+
       setListIsAccessible(true)
     }
 
@@ -98,7 +149,7 @@ export default function Form() {
 
   async function openForm(varib) {
 
-    if (listIsAccessible && Boolean(studentId)) {
+    if (listIsAccessible && Boolean(studentId) && Boolean(varib.path)) {
       localStorage.setItem("FormStudentId", studentId);
       window.history.pushState(null, varib.label, varib.path)
       window.location.reload(true)
