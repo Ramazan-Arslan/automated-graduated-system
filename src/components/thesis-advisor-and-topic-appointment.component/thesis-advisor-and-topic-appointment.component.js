@@ -168,18 +168,6 @@ export default function ThesisAdvisorAndTopicAppointment() {
           Thesis Advisor And Topic Appointment (Preview)
     </p>
         {Boolean(contentList) && getContentListView()}
-        <div className='tnt-std-input'>
-          <p className='tnt-std-input-header'>Thesis Topic</p>
-          <TextField
-            className='tnt-std-default-textfield name'
-            id='standard-basic'
-            disabled
-            label=''
-            value={thesisTopic}
-            onChange={(event) => setThesisTopic(event.target.value)}
-          />
-        </div>
-
       </div>
 
       <Button

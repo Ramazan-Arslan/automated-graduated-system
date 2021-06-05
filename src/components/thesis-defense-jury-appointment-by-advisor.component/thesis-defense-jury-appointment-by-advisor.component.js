@@ -306,7 +306,7 @@ export default function JuryAppointmentByAdvisor() {
               </ul>
             </form>
 
-            <Button onClick={addJury}>ADD</Button>
+            <Button className='add-button' color='secondary' variant='contained' onClick={addJury}>ADD</Button>
           </div>
 
         </div>}
