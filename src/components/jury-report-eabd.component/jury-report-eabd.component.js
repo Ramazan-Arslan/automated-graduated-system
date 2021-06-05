@@ -182,7 +182,7 @@ export default function JuryReportFormByEABD() {
     return (
       <FormControlLabel
         value={value}
-        disabled={Boolean(form)}
+        disabled={!formIsAccessible}
         control={<Radio />}
         label={value}
       />
@@ -335,7 +335,7 @@ export default function JuryReportFormByEABD() {
       {Boolean(msgText) && <div>
           <p className='jury-report-topic'>Thesis Defense Exam Jury Report</p>
           <p className='jury-report-topic'>
-            {"Form TJ is not submitted for : " + studentId + ". So you cannot fill in this form"}
+            {msgText}
           </p>
         </div>
       }
@@ -359,7 +359,7 @@ export default function JuryReportFormByEABD() {
                   format='MM/dd/yyyy'
                   margin='normal'
                   id='date-picker-inline'
-                  disabled={Boolean(form)}
+                  disabled={!formIsAccessible}
                   label='Select Date'
                   value={selectedDate}
                   onChange={handleDateChange}

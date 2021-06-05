@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './thesis-submission.component.css'
+import { Prompt } from 'react-router-dom'
 import MyTextField from '../textfield.component/mytextfield.component'
 import { Button } from '@material-ui/core'
 import { DropzoneArea, DropzoneDialog } from 'material-ui-dropzone'
@@ -10,6 +11,7 @@ import Helper from './thesis-submission-helper.component'
 
 async function receiveThesisData(studentId) {
   var thesis = await Helper.getThesisData(studentId);
+  console.log(thesis)
   return thesis
 }
 
@@ -38,6 +40,7 @@ export default function ThesisSubmission() {
   const [thesis, setThesis] = useState(null)
   const [contentList, setContentList] = useState(null)
   const [isThesisExist, setThesisExist] = useState(false)
+  const [isThesisCanBeFilled, setThesisCanBeFilled] = useState(false)
   const [modalIsOpen, setOpenModal] = useState(false)
   const [dropzoneOpen, setDropzoneOpen] = useState(false)
   const [thesisUrl, setThesisUrl] = useState("")
@@ -47,9 +50,15 @@ export default function ThesisSubmission() {
     setStudent({ id: userId })
     var formData = await receiveFormData(userId, "Form_TS")
     var thesisData = await receiveThesisData(userId)
-    setThesis([thesisData[0]])
-    setThesisUrl(thesisData[1])
+    if(Boolean(thesisData))
+    {
+      setThesis([thesisData[0]])
+      setThesisUrl(thesisData[1])
+    }
+
+    setThesisCanBeFilled(formData?.status === "Accepted")
     var thesisStatus = await canThesisReachable(userId)
+    console.log(thesisStatus)
     setThesisExist(thesisStatus)
     if (Boolean(formData)) {
       setContentListData(formData);
@@ -168,6 +177,10 @@ export default function ThesisSubmission() {
   )
   return (
     <div className='thesis-submission'>
+       {!isThesisCanBeFilled && <div>
+        <p className='thesis-submission-topic'>Form TS is not submitted by EABD. So you cannot submit your thesis</p>
+         </div>}
+      {isThesisCanBeFilled && <div>
       <p className='thesis-submission-topic'>Thesis Submission</p>
       {Boolean(contentList) && <MyTextField myprops={contentList} />}
       {isThesisExist && downloadThesis}
@@ -203,6 +216,12 @@ export default function ThesisSubmission() {
         </Button>
       </div>
 
+      <Prompt
+          when={Boolean(thesis)}
+          message='Changes are not saved. Want to leave?'
+        />
+
+
       <Modal
         open={modalIsOpen}
         onClose={!modalIsOpen}
@@ -211,6 +230,7 @@ export default function ThesisSubmission() {
       >
         {body}
       </Modal>
+      </div>}
     </div>
   )
 }

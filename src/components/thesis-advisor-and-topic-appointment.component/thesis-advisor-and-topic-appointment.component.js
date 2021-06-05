@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './thesis-advisor-and-topic-appointment.component.css'
+import { Prompt } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
@@ -211,6 +212,11 @@ export default function ThesisAdvisorAndTopicAppointment() {
           <p style={{ fontWeight: 'Bold' }}>Submit</p>
         </Button>
       </div>
+
+      <Prompt
+          when={Boolean(thesisTopic)}
+          message='Changes are not saved. Want to leave?'
+        />
       <Modal
         open={modalIsOpen}
         onClose={!modalIsOpen}

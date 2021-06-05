@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './thesis-defense-jury-appointment-by-advisor.component.css'
+import { Prompt } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import { Button } from '@material-ui/core'
@@ -332,6 +333,12 @@ export default function JuryAppointmentByAdvisor() {
           <p style={{ fontWeight: 'Bold' }}>PREVIEW</p>
         </Button>
       </div>}
+
+      <Prompt
+          when={Boolean(juryList) || (Boolean(state.name) || Boolean(state.institute) || Boolean(state.department))}
+          message='Changes are not saved. Want to leave?'
+        />
+
       <Modal
         open={modalIsOpen}
         onClose={!modalIsOpen}
