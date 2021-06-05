@@ -5,8 +5,6 @@ const getRequestAGS = async (path) => {
 
    var address = getHostAddress();
    var returnedData = null;
-   console.log(address + path)
-
 
    await axios.get(address + path)
       .then((response) => {

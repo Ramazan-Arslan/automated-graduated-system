@@ -11,7 +11,6 @@ import Helper from './thesis-submission-helper.component'
 
 async function receiveThesisData(studentId) {
   var thesis = await Helper.getThesisData(studentId);
-  console.log(thesis)
   return thesis
 }
 
@@ -58,7 +57,6 @@ export default function ThesisSubmission() {
 
     setThesisCanBeFilled(formData?.status === "Accepted")
     var thesisStatus = await canThesisReachable(userId)
-    console.log(thesisStatus)
     setThesisExist(thesisStatus)
     if (Boolean(formData)) {
       setContentListData(formData);
@@ -68,8 +66,6 @@ export default function ThesisSubmission() {
 
 
   function setContentListData(formData) {
-
-    console.log(thesis)
     let contentList = [
       {
         label: 'Name Surname',

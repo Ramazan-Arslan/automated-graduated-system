@@ -136,7 +136,6 @@ export default class UserController extends React.Component {
         if (Boolean(advisorId) && (Boolean(acceptedList[0]) || Boolean(rejectedList[0])) ) {
             const userService = new UserService();
             const resultMessage = await userService.setProposalDecisions(advisorId,acceptedList,rejectedList);
-            console.log(resultMessage)
             return resultMessage;
 
         }

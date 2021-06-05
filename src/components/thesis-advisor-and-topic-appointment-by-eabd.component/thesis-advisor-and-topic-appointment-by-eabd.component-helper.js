@@ -5,7 +5,6 @@ const helpers = {
 
     getFormData: async function (studentId, formId) {
         const formController = new FormController()
-        console.log(studentId)
         var formObject = await formController.takeFormData(studentId, formId)
         if (!Boolean(formObject)) {
             return null

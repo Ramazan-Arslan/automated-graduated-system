@@ -26,7 +26,6 @@ async function canFormBeFilled(studentId, formId) {
   if (!isFormTJAccepted) {
     msgText += "Form TJ is not accepted for : " + studentId + ". So you can not fill in this form."
   }
-  console.log(msgText)
   var canFormBeFilled = await Helper.isFormAccessible(studentId, formId)
   return isFormTJAccepted && canFormBeFilled;
 }
@@ -59,13 +58,14 @@ export default function JuryReportFormByEABD() {
   const [examType, setExamType] = useState(null)
   const [examResult, setExamResult] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
+  const [msg, setMsg] = useState("")
 
   useEffect(async () => {
     setUser({ id: userId, type: userType })
     setStudentId(formStudentId)
     var isAccessible = await canFormBeFilled(formStudentId, "Form_TS")
-
     setFormIsAccessible(isAccessible)
+    setMsg(msgText)
     var formData = await receiveFormData(formStudentId, "Form_TS")
     setForm(formData)
     if (Boolean(formData)) {
@@ -332,16 +332,16 @@ export default function JuryReportFormByEABD() {
 
   return (
     <div className='jury-report-by-eabd'>
-      {Boolean(msgText) && <div>
-          <p className='jury-report-topic'>Thesis Defense Exam Jury Report</p>
+       <p className='jury-report-topic'>Thesis Defense Exam Jury Report</p>
+      {(msg !== "") && <div>
           <p className='jury-report-topic'>
-            {msgText}
+           {msg}
           </p>
         </div>
       }
 
-      {!Boolean(msgText) && <div>
-        <p className='jury-report-topic'>Thesis Defense Exam Jury Report</p>
+      {(msg === "") && 
+      <div>
         {Boolean(contentList) && getContentListView()}
         <div className='exam-situation-date'>
           <div className='jury-report-exam-checkboxes'>

@@ -33,7 +33,6 @@ const helpers = {
         const userController = new UserController()
         var url = ("/user/student/" + studentId + "/forms/Form_TD/thesisName")
         var thesisName = await userController.takeSpecificUserInfo(url)
-        console.log(thesisName)
         return thesisName
     },
 

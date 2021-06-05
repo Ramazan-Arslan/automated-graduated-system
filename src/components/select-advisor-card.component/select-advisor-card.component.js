@@ -5,7 +5,6 @@ import { Avatar } from '@material-ui/core';
 
 export default function SelectAdvisorCard(props) {
   const [isFocus, setFocus] = useState(false);
-  console.log(props)
   return (
     <div className={isFocus ? 'card card1'  : 'card card2'}
       onClick={() => {
