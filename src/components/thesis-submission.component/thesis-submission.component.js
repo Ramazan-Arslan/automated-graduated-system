@@ -217,7 +217,7 @@ export default function ThesisSubmission() {
       </div>
 
       <Prompt
-          when={Boolean(thesis) && !isThesisCanBeFilled}
+          when={!Boolean(thesisUrl) && Boolean(thesis)}
           message='Changes are not saved. Want to leave?'
         />
 
