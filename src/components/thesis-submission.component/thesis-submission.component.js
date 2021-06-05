@@ -122,6 +122,20 @@ export default function ThesisSubmission() {
       transform: `translate(-${top}%, -${left}%)`,
     }
   }
+
+  const downloadThesis = (
+    <div className='download-thesis'>
+      <Button
+            className='button preview'
+            disabled={!Boolean(thesisUrl)}
+            onClick={() => {
+              window.location.href = thesisUrl
+            }}
+        >
+          <p style={{ fontWeight: 'Bold' }}>{"Download file"} </p>
+      </Button>
+    </div>
+  )
  
 
   const body = (
@@ -156,6 +170,7 @@ export default function ThesisSubmission() {
     <div className='thesis-submission'>
       <p className='thesis-submission-topic'>Thesis Submission</p>
       {Boolean(contentList) && <MyTextField myprops={contentList} />}
+      {isThesisExist && downloadThesis}
       {!isThesisExist && <div className='input-file'>
         <p className='thesis-submission-upload'>Thesis Submission</p>
         <DropzoneArea
