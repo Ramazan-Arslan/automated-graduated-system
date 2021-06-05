@@ -181,12 +181,12 @@ export default function StudentApproval() {
           ))}
         </List>
 
-        <Button
+        <Button 
           onClick={() => {
             setOpenModal(false)
           }}
         >
-          <p className='preview-button'>&lt; Back</p>
+          <p className='preview-button' style = { {'padding-bottom ': '40px'}}>&lt; Back</p>
         </Button>
       </div>
     )
@@ -208,7 +208,7 @@ export default function StudentApproval() {
         Save Changes
       </Button>
 
-      <Button
+      <Button 
         className='decide accept'
         onClick={() => {
           setOpenModal(true)

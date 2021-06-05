@@ -90,9 +90,9 @@
   flex-direction: row;
   justify-content: space-between;
   width: 120px;
-  position: relative;
-  top: 380px;
-  right: 50%;
+  position: unset;
+  margin-left: 200px;
+  padding-top: 20px;
   padding-bottom: 50px;
 }
 .button {
