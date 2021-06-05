@@ -97,7 +97,7 @@ export default function ThesisSubmission() {
   }
 
   async function uploadThesisButton() {
-    await Helper.setThesisFile(student.id, thesis[0])
+    await Helper.setThesisFile(student.id, Boolean(thesis) ? thesis[0]:null)
   }
 
   const useStyles = makeStyles((theme) => ({
@@ -217,7 +217,7 @@ export default function ThesisSubmission() {
       </div>
 
       <Prompt
-          when={Boolean(thesis)}
+          when={Boolean(thesis) && !isThesisCanBeFilled}
           message='Changes are not saved. Want to leave?'
         />
 
