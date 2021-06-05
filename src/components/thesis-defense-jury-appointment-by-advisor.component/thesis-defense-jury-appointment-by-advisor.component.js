@@ -335,7 +335,7 @@ export default function JuryAppointmentByAdvisor() {
       </div>}
 
       <Prompt
-          when={Boolean(juryList) || (Boolean(state.name) || Boolean(state.institute) || Boolean(state.department))}
+          when={Boolean(formIsAccessible) && (Boolean(juryList) || (Boolean(state.name) || Boolean(state.institute) || Boolean(state.department)))}
           message='Changes are not saved. Want to leave?'
         />
 

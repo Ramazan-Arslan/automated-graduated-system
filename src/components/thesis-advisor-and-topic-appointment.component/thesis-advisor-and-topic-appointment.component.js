@@ -214,7 +214,7 @@ export default function ThesisAdvisorAndTopicAppointment() {
       </div>
 
       <Prompt
-          when={Boolean(thesisTopic)}
+          when={Boolean(thesisTopic) && formIsAccessible}
           message='Changes are not saved. Want to leave?'
         />
       <Modal
